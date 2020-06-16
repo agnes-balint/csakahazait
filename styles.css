@@ -2,6 +2,8 @@
   /*---------------------------GENERAL COLORS---------------------------*/
   --navbar-color: #fff;
   --background-color: #e7ffef;
+  --scrollbar-background: #a2c5ad;
+  --scrollbar-slider: #e8846b;
 
   /*---------------------------BUTTONS---------------------------*/
   /*Outline button*/
@@ -64,8 +66,17 @@
   --artists-icon-text-color: #a2c5ad;
   --artists-icon-background-color-hover: #fff;
   --artists-icon-text-color-hover: #45454d;
+  --artists-disabled-icon-background-color: #aaa;
+  --artists-disabled-icon-text-color: #666;
+  --artists-disabled-icon-background-color-hover: #aaa;
+  --artists-disabled-icon-text-color-hover: #666;
   --artists-slider-indicators-color: #e8846b;
   --artists-card-line-color: #e8846b;
+  --artist-card-pricing-title-color: #e8846b;
+  --artist-card-pricing-description-color: #45454d;
+  --artist-card-pricing-price-color: #45454d;
+  --artist-card-pricing-divider-color: #e8846b;
+
   /*---------------------------ADMINS---------------------------*/
   --admins-card-header-background-color: #e8846b;
   --admins-card-body-background-color: #fff;
@@ -85,6 +96,19 @@
 }
 
 /*---------------------------GENERAL---------------------------*/
+.hide-scrollbar::-webkit-scrollbar, body::-webkit-scrollbar {
+  width: 12px;               /* width of the entire scrollbar */
+}
+.hide-scrollbar::-webkit-scrollbar-track, body::-webkit-scrollbar-track {
+  background: var(--scrollbar-background);        /* color of the tracking area */
+}
+.hide-scrollbar::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-slider);    /* color of the scroll thumb */
+  border-radius: 20px;       /* roundness of the scroll thumb */
+  border: 3px solid var(--scrollbar-background);  /* creates padding around scroll thumb */
+}
+
+
 html {
   scroll-behavior: smooth;
 }
@@ -173,7 +197,7 @@ body {
   padding-right: 10px;
 }
 .img-fluid {
-  width: 50%;
+  width: 75%;
 }
 /*---------------------------NEWS---------------------------*/
 .news-container {
@@ -351,6 +375,9 @@ body {
   border-color: var(--rules-card-line-color);
 }
 /*---------------------------ARTISTS---------------------------*/
+.artist {
+  padding-bottom: 50px;
+}
 .artists-container {
   padding-top: 150px;
 }
@@ -528,21 +555,30 @@ body {
   height: 350px;
 }
 .introduction {
-  height: 200px;
+  height: 150px;
   display: block;
   overflow: auto;
   text-align: left;
 }
-.hide-scrollbar {
-  /*FireFox*/
+.awards {
+  height: 50px;
+  display: block;
+  overflow: auto;
+  text-align: left;
+}
+.price-list {
+  height: 300px;
+  display: block;
+  overflow: auto;
+  text-align: left;
+}
+/* .hide-scrollbar {
   scrollbar-width: none;
-  /*IE10+*/
   -ms-overflow-style: -ms-autohiding-scrollbar;
 }
 .hide-scrollbar::-webkit-scrollbar {
-  /*Chrome, Safari, Edge*/
   display: none;
-}
+} */
 .art {
   max-height: 300px;
   height: 300px;
@@ -571,6 +607,21 @@ body {
   background-color: var(--artists-icon-background-color-hover);
   color: var(--artists-icon-text-color-hover);
 }
+.artists-btn-circle-disable {
+  width: 35px;
+  height: 35px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 0.75rem;
+  line-height: 1.428571429;
+  border-radius: 35px;
+  background-color: var(--artists-disabled-icon-background-color);
+  color: var(--artists-disabled-icon-text-color);
+}
+.artists-btn-circle-disable:hover {
+  background-color: var(--artists-disabled-icon-background-color-hover);
+  color: var(--artists-disabled-icon-text-color-hover);
+}
 .badge {
   background-color: var(--artists-tags-background-color);
   color: var(--artists-tags-text-color);
@@ -596,6 +647,74 @@ body {
   top: 75px;
   z-index: 100;
 }
+.divider-title{
+    border:1px solid var(--artist-card-pricing-divider-color);
+}
+
+.project {
+    margin-bottom: 30px;
+    vertical-align: top;
+    margin-right: 30px;
+    float: left;
+    cursor: pointer;
+    width:100%;
+}
+
+.project figure {
+    position: relative;
+    display: inline-block;
+    width: 283px;
+    -moz-box-shadow: 0 3px 0 #e2e2e2,transparent 0 0 0;
+    -webkit-box-shadow: 0 3px 0 #e2e2e2,transparent 0 0 0;
+    box-shadow: 0 3px 0 #e2e2e2,transparent 0 0 0;
+    -webkit-box-shadow: 0 3px 0 #e2e2e2;
+    -moz-box-shadow: 0 3px 0 #e2e2e2;
+    box-shadow: 0 3px 0 #e2e2e2;
+}
+
+.project figure figcaption {
+    position: relative;
+    z-index: 10;
+    padding: 8px 18px 11px;
+    background: #fff;
+    -ms-transition: all .2s ease-out;
+    -webkit-transition: all .2s ease-out;
+    -moz-transition: all .2s ease-out;
+    -o-transition: all .2s ease-out;
+    transition: all .2s ease-out;
+    text-align: left;
+    color: #555;
+}
+
+figcaption .project-details {
+    display: block;
+    font-size: 16px;
+    line-height: 33px;
+    color: var(--artist-card-pricing-title-color);
+    height: 27px;
+    width: 85%;
+    margin-bottom: 5px;
+    overflow: hidden;
+}
+
+figcaption .project-price {
+    color: var(--artist-card-pricing-price-color);
+    position: absolute;
+    right: 15px;
+    top: 0px;
+    font-size: 1rem;
+    text-align: right;
+    margin-top: 8px;
+    letter-spacing: -1px;
+    -webkit-font-smoothing: antialiased;
+    width: 100px;
+}
+
+figcaption .project-creator {
+    font-size: 13px;
+    color: var(--artist-card-pricing-description-color);
+    display: block;
+}
 /*---------------------------ADMINS---------------------------*/
 .panel {
     box-shadow: 0 2px 0 rgba(0,0,0,0.075);
@@ -614,16 +733,6 @@ body {
   height: 100px;
   display: block;
   overflow: auto;
-}
-.hide-scrollbar {
-  /*FireFox*/
-  scrollbar-width: none;
-  /*IE10+*/
-  -ms-overflow-style: -ms-autohiding-scrollbar;
-}
-.hide-scrollbar::-webkit-scrollbar {
-  /*Chrome, Safari, Edge*/
-  display: none;
 }
 .panel .panel-heading, .panel>:first-child {
     border-top-left-radius: 0;
