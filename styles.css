@@ -485,7 +485,7 @@ body {
     box-shadow: 0 0 0 5px var(--artists-profile-picture-border);
     text-align: center;
     left: 20%;
-    top: 0;
+    top: -40px;
     margin: 0 0 0 -55px
 }
 @media screen and (max-width: 992px) and (min-width: 768px) {
