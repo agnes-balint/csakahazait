@@ -85,6 +85,16 @@
 }
 
 /*---------------------------GENERAL---------------------------*/
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 @viewport{
     zoom: 1.0;
     width: extend-to-zoom;

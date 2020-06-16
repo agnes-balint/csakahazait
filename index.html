@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1" >
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta charset="utf-8">
   <title>CsakAHazait!</title>
   <!-- STYLES -->
@@ -11,29 +11,6 @@
   <link rel="stylesheet" href="styles.css">
   <!-- FONT -->
   <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-
-</head>
-
-<body>
-
-  <nav class="navbar navbar-expand-lg navbar-light navbar-own fixed-top">
-    <a class="navbar-brand" href="index.html"><img src="images/logo_small.png" class="img-fluid-mini"></a>
-    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-      <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-        <li class="nav-item"><a class="nav-link" href="#" data-page="news">Hírek</a></li>
-        <li class="nav-item"><a class="nav-link" href="#" data-page="rules">Szabályzat</a></li>
-        <li class="nav-item"><a class="nav-link" href="#" data-page="artists">Művészeink</a></li>
-        <li class="nav-item"><a class="nav-link" href="#" data-page="admins">Üzemeltetőink</a></li>
-        <li class="nav-item"><a class="nav-link" href="#" data-page="contact">Kapcsolat</a></li>
-      </ul>
-    </div>
-  </nav>
-
-  <div class="content"></div>
-
   <!-- SCRIPTS -->
   <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -41,46 +18,49 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
   <script type="text/javascript">
-    // $(document).ready(function() {
+    // to top right away
 
-        $(window).on('load', function() {
-          var pageURL = $(location).attr("href");
-          var artistIdentifier = "";
-          var artistIdentifierStartString = pageURL.indexOf("#artist");
-          if(artistIdentifierStartString > -1){
-            $(".content").load("artists.html");
-            artistIdentifier = pageURL.substr(artistIdentifierStartString, pageURL.length);
-            $(document).ready(function() {
-              console.log('huha: '+artistIdentifier);
-              var contentArtist = $(artistIdentifier);
-              if(contentArtist.length){
-                $('html,body').animate({
-                  scrollTop: $(artistIdentifier).offset().top - $(artistIdentifier).height() / 4
-                }, 'slow');
-              }
-            });
-          }
-          else {
-            $(".content").load("home.html");
-          }
-          $("ul.navbar-nav li a").each(function() {
-            $(this).on("click", function(){
-                $(".content").load($(this).attr("data-page")+".html");
-            });
-          });
+    $(document).ready(function() {
+      $("#menu").load("navbar.html");
+    });
 
-          $(document).on('click', '.art', function() {
-            var src = $(this).attr('src');
-            $("#model-img").attr('src', src);
-            $("#modal").modal('show');
-          })
+    $(document).on('click', '.art', function() {
+      console.log("4");
+      var src = $(this).attr('src');
+      $("#model-img").attr('src', src);
+      $("#modal").modal('show');
+    })
 
-          $(document).on('click',function(){
-            $('.collapse').collapse('hide');
-          })
-
-        });
+    $(document).on('click', function() {
+      $('.collapse').collapse('hide');
+    })
   </script>
+
+</head>
+
+<body>
+
+  <div id="menu"></div>
+
+  <section class="banner">
+    <div class="container home-container">
+      <div class="row">
+        <div class="col-md-6">
+          <p class="promo-title index-text">Vásárolj Te is hazai termelőktől!</p>
+          <p class="index-text">Suspendisse porttitor neque consequat lorem dictum ultricies. Sed sed orci dolor.
+            Nam non lorem libero. Nunc volutpat leo a lectus suscipit, eget tempor metus euismod. Cras vel pharetra nisi.
+            Pellentesque malesuada, massa eget maximus semper, lorem tellus luctus est, sed bibendum quam ipsum eu risus.
+            Proin non gravida ante.</p>
+          <a class="btn btn-lg btn-outline-dark" href="https://www.facebook.com/groups/2389278021369945/" role="button" target="_blank"><i class="fab fa-facebook"></i>Csatlakozom!</a>
+        </div>
+        <div class="col-md-6 text-center my-auto">
+          <img src="images/logo_big.png" class="img-fluid">
+        </div>
+      </div>
+
+    </div>
+  </section>
+
 
 </body>
 
