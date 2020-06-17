@@ -663,7 +663,7 @@ body {
 .project figure {
     position: relative;
     display: inline-block;
-    width: 260px;
+    width: 240px;
     -moz-box-shadow: 0 3px 0 #e2e2e2,transparent 0 0 0;
     -webkit-box-shadow: 0 3px 0 #e2e2e2,transparent 0 0 0;
     box-shadow: 0 3px 0 #e2e2e2,transparent 0 0 0;
