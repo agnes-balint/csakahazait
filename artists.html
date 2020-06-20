@@ -14,15 +14,411 @@
   <!-- SCRIPTS -->
   <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
+
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
   <script type="text/javascript">
-    $(document).ready(function() {
-      // $(window).on('load', function() {
-      $("#menu").load("navbar.html");
-      $("#footer").load("footer.html");
+
+  $(document).ready(function() {
+    // $(window).on('load', function() {
+    $("#menu").load("navbar.html");
+    $("#footer").load("footer.html");
+  });
+
+  var data;
+  var options={"separator" : ";"};
+    $.ajax({
+      type: "GET",
+      url: "datas/artists/artists.csv",
+      dataType: "text",
+      success: function(response)
+      {
+        data = $.csv.toArrays(response, options);
+        var artistNumber
+        var name
+        var location
+        var story
+        var facebook
+        var twitter
+        var web
+        var mail
+        var phone
+
+        if(typeof(data[0]) === 'undefined')
+        {
+          return null;
+        }
+        else
+        {
+          $.each(data, function( index, row )
+          {
+            if(index != 0)
+            {
+              artistNumber = index;
+              $.each(row, function( index, colData)
+              {
+                if(index == 0){
+                  name = colData
+                }
+                if(index == 1){
+                  location = colData
+                }
+                if(index == 2){
+                  story = colData
+                }
+                if(index == 3){
+                  facebook = colData
+                }
+                if(index == 4){
+                  twitter = colData
+                }
+                if(index == 5){
+                  web = colData
+                }
+                if(index == 6){
+                  mail = colData
+                }
+                if(index == 7){
+                  phone = colData
+                }
+              });
+
+              var appendString = "<li class='artist' id='artist"+artistNumber+"'>" +
+              "	<div class='cbp_tmtime_artists'><span id='artistName'>"+name+"</span>" +
+              "	  <span><i class='fas fa-map-marker-alt'>&nbsp</i>"+location+"</span>" +
+              "	</div>" +
+              "	<div class='cbp_tmicon_artists bg-info_artists'>" +
+              "	  <img alt='Profile Picture' class='profile-img widget-img img-circle img-border-light rounded-circle' src='datas/artists/"+name+"/profileImage/avatar.jpg'>" +
+              "	  <img alt='artist-badge' class='artist-badge img-circle rounded-circle' src='images/badge.png'>" +
+              "	</div>" +
+              "	<div class='cbp_tmlabel_artists'>" +
+              "	  <div class='card artist-card text-center'>" +
+              "		<div class='card-header tab-card-header'>" +
+              "		  <ul class='nav nav-tabs card-header-tabs' id='artist"+artistNumber+"-myTab' role='tablist'>" +
+              "			<li class='nav-item'>" +
+              "			  <a class='tab-text nav-link active' id='artist"+artistNumber+"-one-tab' data-toggle='tab' href='#artist"+artistNumber+"-one' role='tab' aria-controls='One' aria-selected='true'>Sztorim</a>" +
+              "			</li>" +
+              "			<li class='nav-item'>" +
+              "			  <a class='tab-text nav-link' id='artist"+artistNumber+"-two-tab' data-toggle='tab' href='#artist"+artistNumber+"-two' role='tab' aria-controls='Two' aria-selected='false'>Műveim</a>" +
+              "			</li>" +
+              "			<li class='nav-item'>" +
+              "			  <a class='tab-text nav-link' id='artist"+artistNumber+"-three-tab' data-toggle='tab' href='#artist"+artistNumber+"-three' role='tab' aria-controls='Three' aria-selected='false'>Áraim</a>" +
+              "			</li>" +
+              "		  </ul>" +
+              "		</div>" +
+              "		<div class='tab-content artist-tab-content' id='artist"+artistNumber+"-myTabContent'>" +
+              "		  <div class='tab-pane fade show active p-3' id='artist"+artistNumber+"-one' role='tabpanel' aria-labelledby='artist"+artistNumber+"-one-tab'>" +
+              "			<div class='introduction hide-scrollbar'>" +
+              "			  <p class='card-text '>"+story+"</p>" +
+              "			</div>" +
+
+              "		  </div>" +
+
+
+
+              "		  <div class='tab-pane fade p-3' id='artist"+artistNumber+"-two' role='tabpanel' aria-labelledby='artist"+artistNumber+"-two-tab'>" +
+              "			<div class='carousel slide' id='artist"+artistNumber+"-slider' data-ride='carousel' data-interval='false' data-touch='true'>" +
+              "			  <ol class='carousel-indicators' id='artist"+artistNumber+"-slider-indicators' >" +
+
+              "			  </ol>" +
+
+              "			  <div class='carousel-inner' id='carousel-inner'>" +
+
+              "			  </div>" +
+              "  <a class='carousel-control-prev' href='#artist"+artistNumber+"-slider' role='button' data-slide='prev'>"+
+              "    <span class='carousel-control-prev-icon' aria-hidden='true'></span>"+
+              "    <span class='sr-only'>Previous</span>"+
+              "  </a>"+
+              "  <a class='carousel-control-next' href='#artist"+artistNumber+"-slider' role='button' data-slide='next'>"+
+              "    <span class='carousel-control-next-icon' aria-hidden='true'></span>"+
+              "    <span class='sr-only'>Next</span>"+
+              "  </a>"+
+
+
+              "			</div>" +
+              "		  </div>" +
+
+
+              "		  <div class='tab-pane fade p-3' id='artist"+artistNumber+"-three' role='tabpanel' aria-labelledby='artist"+artistNumber+"-three-tab'>" +
+              "			<div class='container price-list hide-scrollbar' id='price-list'>" +
+
+
+              "			</div>" +
+              "		  </div>" +
+              "		</div>" +
+              "		<div class='card-footer' id='artist"+artistNumber+"-card-footer'>" +
+
+              "		</div>" +
+              "	  </div>" +
+              "	</div>" +
+              "  </li>"
+
+              $("#cbp_tmtimeline_artists").append(appendString);
+              createAchivements(name, artistNumber)
+              createTags(name, artistNumber)
+              createImages(name, artistNumber)
+              createPrices(name, artistNumber)
+              createContact(artistNumber, facebook, twitter, web, mail, phone)
+
+
+
+            }
+          });
+        }
+      }
     });
+
+
+
+
+  function createAchivements(artistName, artistNumber){
+    var achivements;
+    var achivement;
+    var achivementText = "";
+
+    var options={"separator" : ";"};
+      $.ajax({
+        type: "GET",
+        url: "datas/artists/"+artistName+"/achivements.csv",
+        dataType: "text",
+        success: function(response1)
+        {
+          achivements = $.csv.toArrays(response1, options);
+
+          if(typeof(achivements[0]) === 'undefined')
+          {
+            return null;
+          }
+          else
+          {
+            achivementText = achivementText.concat("			<hr class='artists-card-line'>" +
+                                                   "			<div class='awards hide-scrollbar'>")
+            $.each(achivements, function( index, row )
+            {
+              if(index != 0)
+              {
+                $.each(row, function( index, colData)
+                {
+                  if(index == 0){
+                    achivement = colData
+                  }
+                  achivementText = achivementText.concat("			  <span><i class='fas fa-trophy'>&nbsp</i>"+achivement+"</span><br>")
+                });
+              }
+            });
+            achivementText = achivementText.concat("			</div>")
+            $("#artist"+artistNumber+"-one").append(achivementText);
+          }
+        }
+      });
+    }
+
+
+  function createTags(artistName, artistNumber){
+    var tags;
+    var tag;
+    var tagText = ""
+
+    var options={"separator" : ";"};
+      $.ajax({
+        type: "GET",
+        url: "datas/artists/"+artistName+"/tags.csv",
+        dataType: "text",
+        success: function(response)
+        {
+          tags = $.csv.toArrays(response, options);
+
+          if(typeof(tags[0]) === 'undefined')
+          {
+            return null;
+          }
+          else
+          {
+            tagText = "			<hr class='artists-card-line'>" +
+                      "			<div class='tags'>"
+            $.each(tags, function( index, row )
+            {
+              if(index != 0)
+              {
+                $.each(row, function( index, colData)
+                {
+                  if(index == 0){
+                    tag = colData
+                  }
+                  tagText = tagText.concat("			  <span class='badge badge-pill badge-primary'>"+tag+"</span>")
+                });
+
+              }
+            });
+            tagText = tagText.concat("			  </div>")
+            $("#artist"+artistNumber+"-one").append(tagText);
+          }
+        }
+      });
+    }
+
+    function createImages(artistName, artistNumber){
+      var images;
+      var image;
+      var imageTextSlider = ""
+      var imageTextImages = ""
+      var rowIndex
+      var sliderIndex
+
+      var options={"separator" : ";"};
+        $.ajax({
+          type: "GET",
+          url: "datas/artists/"+artistName+"/images.csv",
+          dataType: "text",
+          success: function(response)
+          {
+            images = $.csv.toArrays(response, options);
+
+            if(typeof(images[0]) === 'undefined')
+            {
+              return null;
+            }
+            else
+            {
+              $.each(images, function( index, row )
+              {
+                if(index != 0)
+                {
+                  rowIndex = index
+                  $.each(row, function( index, colData)
+                  {
+                    if(index == 0){
+                      image = colData
+                    }
+                    if(rowIndex == 1){
+                      sliderIndex = rowIndex-1
+                      imageTextSlider = imageTextSlider.concat("				<li data-target='#artist"+artistNumber+"-slider' data-slide-to='"+sliderIndex+"' class='active'></li>")
+                      imageTextImages = imageTextImages.concat("				<div class='carousel-item active'>" +
+                                                              "				  <img class='art d-block' src='datas/artists/"+artistName+"/images/"+image+"'>" +
+                                                              "				</div>")
+                    }
+                    else {
+                      sliderIndex = rowIndex-1
+                      imageTextSlider = imageTextSlider.concat("				<li data-target='#artist"+artistNumber+"-slider' data-slide-to='"+sliderIndex+"' ></li>")
+                      imageTextImages = imageTextImages.concat("				<div class='carousel-item'>" +
+                                                              "				  <img class='art d-block' src='datas/artists/"+artistName+"/images/"+image+"'>" +
+                                                              "				</div>")
+                    }
+
+
+                  });
+
+                }
+              });
+              $("#artist"+artistNumber+"-slider-indicators").append(imageTextSlider);
+              $("#carousel-inner").append(imageTextImages);
+            }
+          }
+        });
+      }
+
+      function createPrices(artistName, artistNumber){
+        var prices;
+        var title;
+        var price;
+        var description;
+        var priceText = ""
+
+        var options={"separator" : ";"};
+          $.ajax({
+            type: "GET",
+            url: "datas/artists/"+artistName+"/prices.csv",
+            dataType: "text",
+            success: function(response)
+            {
+              prices = $.csv.toArrays(response, options);
+
+              if(typeof(prices[0]) === 'undefined')
+              {
+                return null;
+              }
+              else
+              {
+                $.each(prices, function( index, row )
+                {
+                  if(index != 0)
+                  {
+                    $.each(row, function( index, colData)
+                    {
+                      if(index == 0){
+                        title = colData
+                      }
+                      if(index == 1){
+                        price = colData
+                      }
+                      if(index == 2){
+                        description = colData
+                      }
+
+                    });
+                    priceText = priceText.concat("			  <div class='row'>" +
+                                                "				<div class='col-ms-10 col-md-4 '>" +
+                                                "				  <div class='project'>" +
+                                                "					<figure class='img-responsive'>" +
+                                                "					  <figcaption>" +
+                                                "						<span class='project-details'>"+title+"</span>" +
+                                                "						<span class='project-price'><strong>"+price+"</strong></span>" +
+                                                "						<span class='project-creator'>"+description+"</span>" +
+                                                "					  </figcaption>" +
+                                                "					</figure>" +
+                                                "				  </div>" +
+                                                "				</div>" +
+                                                "			  </div>")
+
+                  }
+                });
+                $("#price-list").append(priceText);
+              }
+            }
+          });
+        }
+
+    function createContact(artistNumber, facebook, twitter, web, mail, phone){
+      var contactText = ""
+
+      if(facebook != ""){
+        contactText = contactText.concat("		  <a type='button' class='btn artists-btn-circle' href='"+facebook+"' target='_blank'><i class='fab fa-facebook-f fa-lg'></i></a>")
+        }
+      else {
+        contactText = contactText.concat("		  <a type='button' class='btn artists-btn-circle-disable'><i class='fab fa-facebook-f fa-lg'></i></a>")
+      }
+      if(twitter != ""){
+        contactText = contactText.concat("		  <a type='button' class='btn artists-btn-circle' href='"+twitter+"' target='_blank'><i class='fab fa-twitter fa-lg'></i></a>")
+      }
+      else {
+        contactText = contactText.concat("		  <a type='button' class='btn artists-btn-circle-disable'><i class='fab fa-twitter fa-lg'></i></a>")
+      }
+
+      if(web != ""){
+        contactText = contactText.concat("		  <a type='button' class='btn artists-btn-circle' href='"+web+"' target='_blank'><i class='fas fa-globe fa-lg'></i></a>")
+      }
+      else {
+        contactText = contactText.concat("		  <a type='button' class='btn artists-btn-circle-disable'><i class='fas fa-globe fa-lg'></i></a>")
+      }
+
+      if(mail != ""){
+        contactText = contactText.concat("		  <a type='button' class='btn artists-btn-circle example-popover' contact-content='"+mail+"'><i class='far fa-envelope fa-lg'></i></a>")
+      }
+      else {
+        contactText = contactText.concat("		  <a type='button' class='btn artists-btn-circle-disable'><i class='far fa-envelope fa-lg'></i></a>")
+      }
+
+      if(phone != ""){
+        contactText = contactText.concat("		  <a type='button' class='btn artists-btn-circle example-popover' contact-content="+phone+"><i class='fas fa-phone fa-lg'></i></a>")
+      }
+      else {
+        contactText = contactText.concat("		  <a type='button' class='btn artists-btn-circle-disable'><i class='fas fa-phone fa-lg'></i></a>")
+      }
+      $("#artist"+artistNumber+"-card-footer").append(contactText);
+    }
+
 
     if (window.location.hash) scroll(0, 0);
     // void some browsers issue
@@ -48,8 +444,6 @@
       }, 1000, 'swing');
     });
 
-
-
     $(document).on('click', '.art', function() {
       console.log("4");
       var src = $(this).attr('src');
@@ -57,9 +451,18 @@
       $("#modal").modal('show');
     })
 
+    $(document).on('click', '.example-popover', function() {
+      $("#contact-modal-body").empty();
+      var src = $(this).attr('contact-content');
+      $("#contact-modal-body").append(src);
+      $("#contact-modal").modal('show');
+    })
+
     $(document).on('click', function() {
       $('.collapse').collapse('hide');
     })
+
+
   </script>
 
 </head>
@@ -72,628 +475,7 @@
   <div class="container artists-container">
     <div class="row">
       <div class="col-md-12">
-        <ul class="cbp_tmtimeline_artists">
-
-          <li class="artist" id="artist1">
-            <div class="cbp_tmtime_artists"><span>Kapocsiné Ballagós Márta</span>
-              <span><i class="fas fa-map-marker-alt">&nbsp</i>Budapest</span>
-            </div>
-            <div class="cbp_tmicon_artists bg-info_artists">
-              <img alt="Profile Picture" class="profile-img widget-img img-circle img-border-light rounded-circle" src="images/avatar1.jpg">
-              <img alt="artist-badge" class="artist-badge img-circle rounded-circle" src="images/badge.png">
-            </div>
-            <div class="cbp_tmlabel_artists">
-              <div class="card artist-card text-center">
-                <div class="card-header tab-card-header">
-                  <ul class="nav nav-tabs card-header-tabs" id="artist1-myTab" role="tablist">
-                    <li class="nav-item">
-                      <a class="tab-text nav-link active" id="artist1-one-tab" data-toggle="tab" href="#artist1-one" role="tab" aria-controls="One" aria-selected="true">Sztorim</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="tab-text nav-link" id="artist1-two-tab" data-toggle="tab" href="#artist1-two" role="tab" aria-controls="Two" aria-selected="false">Műveim</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="tab-text nav-link" id="artist1-three-tab" data-toggle="tab" href="#artist1-three" role="tab" aria-controls="Three" aria-selected="false">Áraim</a>
-                    </li>
-                  </ul>
-                </div>
-                <div class="tab-content artist-tab-content" id="artist1-myTabContent">
-                  <div class="tab-pane fade show active p-3" id="artist1-one" role="tabpanel" aria-labelledby="artist1-one-tab">
-                    <div class="introduction hide-scrollbar">
-                      <p class="card-text ">
-                        Sziasztok! Szeretném nektek bemutatni saját készítésű portré festményeimet, amelyeket nagy gondossággal készítettem el :)
-                        Minden kép egyedi, minden arc különleges és sajátos. Nehéz visszaadni azt egy porté segítségével, de igyekszem mindenből kihozni a maximumot! :)
-                        Várom lelkes megrendelőimet, akik szeretnék megörökíteni a pillanatot az utókornak és egy csodálatos festményt szeretnének felszögelni a nappali falára!
-                        Utóirat: A görgetés miatt legyen egy kicsit hosszabb szöveg, ezért ismétlés:
-                        Várom lelkes megrendelőimet, akik szeretnék megörökíteni a pillanatot az utókornak és egy csodálatos festményt szeretnének felszögelni a nappali falára!
-                      </p>
-                    </div>
-                    <hr class="artists-card-line">
-                    <div class="awards hide-scrollbar">
-                      <span><i class="fas fa-trophy">&nbsp</i>Ezüstgerely díj</span><br>
-                      <span><i class="fas fa-trophy">&nbsp</i>Herczeg Klára-díj</span><br>
-                      <span><i class="fas fa-trophy">&nbsp</i>Munkácsy Mihály-díj</span><br>
-                    </div>
-                    <hr class="artists-card-line">
-                    <div class="tags">
-                      <span class="badge badge-pill badge-primary">Festmény</span>
-                      <span class="badge badge-pill badge-primary">Olaj</span>
-                      <span class="badge badge-pill badge-primary">Vászon</span>
-                      <span class="badge badge-pill badge-primary">Portré</span>
-                    </div>
-                  </div>
-                  <div class="tab-pane fade p-3" id="artist1-two" role="tabpanel" aria-labelledby="artist1-two-tab">
-                    <div id="artist1-slider" class="carousel slide" data-ride="carousel" data-interval="false" data-touch="true">
-                      <ol class="carousel-indicators">
-                        <li data-target="#artist1-slider" data-slide-to="0" class="active"></li>
-                        <li data-target="#artist1-slider" data-slide-to="1"></li>
-                        <li data-target="#artist1-slider" data-slide-to="2"></li>
-                      </ol>
-                      <div class="carousel-inner">
-                        <div class="carousel-item active">
-                          <img class="art d-block" src="images/painting1.jpg">
-                        </div>
-                        <div class="carousel-item">
-                          <img class="art d-block" src="images/painting2.jpg">
-                        </div>
-                        <div class="carousel-item">
-                          <img class="art d-block" src="images/painting3.jpg">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="tab-pane fade p-3" id="artist1-three" role="tabpanel" aria-labelledby="artist1-three-tab">
-                    <div class="container price-list hide-scrollbar">
-
-                      <div class="row">
-                        <div class="col-ms-10 col-md-4 ">
-                          <div class="project">
-                            <figure class="img-responsive">
-                              <figcaption>
-                                <span class="project-details">Kisebb képek</span>
-                                <span class="project-price"><strong>3 900 Ft</strong></span>
-                                <span class="project-creator">20x30cm-es</span>
-                              </figcaption>
-                            </figure>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-ms-10 col-md-4 ">
-                          <div class="project">
-                            <figure class="img-responsive">
-                              <figcaption>
-                                <span class="project-details">Nagyobb képek</span>
-                                <span class="project-price"><strong>16 000-<br>19 000 Ft</strong></span>
-                                <span class="project-creator">50x70cm-es</span>
-                              </figcaption>
-                            </figure>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-ms-10 col-md-4 ">
-                          <div class="project">
-                            <figure class="img-responsive">
-                              <figcaption>
-                                <span class="project-details">Nagyobb képek</span>
-                                <span class="project-price"><strong>16 000-<br>19 000 Ft</strong></span>
-                                <span class="project-creator">50x70cm-es</span>
-                              </figcaption>
-                            </figure>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-ms-10 col-md-4 ">
-                          <div class="project">
-                            <figure class="img-responsive">
-                              <figcaption>
-                                <span class="project-details">Nagyobb képek</span>
-                                <span class="project-price"><strong>16 000-<br>19 000 Ft</strong></span>
-                                <span class="project-creator">50x70cm-es</span>
-                              </figcaption>
-                            </figure>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-ms-10 col-md-4 ">
-                          <div class="project">
-                            <figure class="img-responsive">
-                              <figcaption>
-                                <span class="project-details">Nagyobb képek</span>
-                                <span class="project-price"><strong>16 000-<br>19 000 Ft</strong></span>
-                                <span class="project-creator">50x70cm-es</span>
-                              </figcaption>
-                            </figure>
-                          </div>
-                        </div>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-                <div class="card-footer">
-                  <button type="button" class="btn artists-btn-circle"><i class="fab fa-facebook-f fa-lg"></i></button>
-                  <button type="button" class="btn artists-btn-circle-disable"><i class="fab fa-twitter fa-lg"></i></button>
-                  <button type="button" class="btn artists-btn-circle-disable"><i class="fas fa-globe fa-lg"></i></button>
-                  <button type="button" class="btn artists-btn-circle"><i class="far fa-envelope fa-lg"></i></button>
-                  <button type="button" class="btn artists-btn-circle"><i class="fas fa-phone fa-lg"></i></button>
-                </div>
-              </div>
-            </div>
-          </li>
-
-          <li class="artist" id="artist2">
-            <div class="cbp_tmtime_artists"><span>Kapocsiné Ballagós Márta</span>
-              <span><i class="fas fa-map-marker-alt">&nbsp</i>Budapest</span>
-            </div>
-            <div class="cbp_tmicon_artists bg-info_artists">
-              <img alt="Profile Picture" class="profile-img widget-img img-circle img-border-light rounded-circle" src="images/avatar2.jpg">
-              <img alt="artist-badge" class="artist-badge img-circle rounded-circle" src="images/badge.png">
-            </div>
-            <div class="cbp_tmlabel_artists">
-              <div class="card artist-card text-center">
-                <div class="card-header tab-card-header">
-                  <ul class="nav nav-tabs card-header-tabs" id="artist2-myTab" role="tablist">
-                    <li class="nav-item">
-                      <a class="tab-text nav-link active" id="artist2-one-tab" data-toggle="tab" href="#artist2-one" role="tab" aria-controls="One" aria-selected="true">Sztorim</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="tab-text nav-link" id="artist2-two-tab" data-toggle="tab" href="#artist2-two" role="tab" aria-controls="Two" aria-selected="false">Műveim</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="tab-text nav-link" id="artist2-three-tab" data-toggle="tab" href="#artist2-three" role="tab" aria-controls="Three" aria-selected="false">Áraim</a>
-                    </li>
-                  </ul>
-                </div>
-                <div class="tab-content artist-tab-content" id="artist2-myTabContent">
-                  <div class="tab-pane fade show active p-3" id="artist2-one" role="tabpanel" aria-labelledby="artist2-one-tab">
-                    <div class="introduction hide-scrollbar">
-                      <p class="card-text ">
-                        Sziasztok! Szeretném nektek bemutatni saját készítésű portré festményeimet, amelyeket nagy gondossággal készítettem el :)
-                        Minden kép egyedi, minden arc különleges és sajátos. Nehéz visszaadni azt egy porté segítségével, de igyekszem mindenből kihozni a maximumot! :)
-                        Várom lelkes megrendelőimet, akik szeretnék megörökíteni a pillanatot az utókornak és egy csodálatos festményt szeretnének felszögelni a nappali falára!
-                        Utóirat: A görgetés miatt legyen egy kicsit hosszabb szöveg, ezért ismétlés:
-                        Várom lelkes megrendelőimet, akik szeretnék megörökíteni a pillanatot az utókornak és egy csodálatos festményt szeretnének felszögelni a nappali falára!
-                      </p>
-                    </div>
-                    <hr class="artists-card-line">
-                    <div class="awards hide-scrollbar">
-                      <span><i class="fas fa-trophy">&nbsp</i>Ezüstgerely díj</span><br>
-                      <span><i class="fas fa-trophy">&nbsp</i>Herczeg Klára-díj</span><br>
-                      <span><i class="fas fa-trophy">&nbsp</i>Munkácsy Mihály-díj</span><br>
-                    </div>
-                    <hr class="artists-card-line">
-                    <div class="tags">
-                      <span class="badge badge-pill badge-primary">Festmény</span>
-                      <span class="badge badge-pill badge-primary">Olaj</span>
-                      <span class="badge badge-pill badge-primary">Vászon</span>
-                      <span class="badge badge-pill badge-primary">Portré</span>
-                    </div>
-                  </div>
-                  <div class="tab-pane fade p-3" id="artist2-two" role="tabpanel" aria-labelledby="artist2-two-tab">
-                    <div id="artist2-slider" class="carousel slide" data-ride="carousel" data-interval="false" data-touch="true">
-                      <ol class="carousel-indicators">
-                        <li data-target="#artist2-slider" data-slide-to="0" class="active"></li>
-                        <li data-target="#artist2-slider" data-slide-to="1"></li>
-                        <li data-target="#artist2-slider" data-slide-to="2"></li>
-                      </ol>
-                      <div class="carousel-inner">
-                        <div class="carousel-item active">
-                          <img class="art d-block" src="images/painting1.jpg">
-                        </div>
-                        <div class="carousel-item">
-                          <img class="art d-block" src="images/painting2.jpg">
-                        </div>
-                        <div class="carousel-item">
-                          <img class="art d-block" src="images/painting3.jpg">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="tab-pane fade p-3" id="artist2-three" role="tabpanel" aria-labelledby="artist2-three-tab">
-                    <div class="container price-list hide-scrollbar">
-
-                      <div class="row">
-                        <div class="col-ms-10 col-md-4 ">
-                          <div class="project">
-                            <figure class="img-responsive">
-                              <figcaption>
-                                <span class="project-details">Kisebb képek</span>
-                                <span class="project-price"><strong>3 900 Ft</strong></span>
-                                <span class="project-creator">20x30cm-es</span>
-                              </figcaption>
-                            </figure>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-ms-10 col-md-4 ">
-                          <div class="project">
-                            <figure class="img-responsive">
-                              <figcaption>
-                                <span class="project-details">Nagyobb képek</span>
-                                <span class="project-price"><strong>16 000-<br>19 000 Ft</strong></span>
-                                <span class="project-creator">50x70cm-es</span>
-                              </figcaption>
-                            </figure>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-ms-10 col-md-4 ">
-                          <div class="project">
-                            <figure class="img-responsive">
-                              <figcaption>
-                                <span class="project-details">Nagyobb képek</span>
-                                <span class="project-price"><strong>16 000-<br>19 000 Ft</strong></span>
-                                <span class="project-creator">50x70cm-es</span>
-                              </figcaption>
-                            </figure>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-ms-10 col-md-4 ">
-                          <div class="project">
-                            <figure class="img-responsive">
-                              <figcaption>
-                                <span class="project-details">Nagyobb képek</span>
-                                <span class="project-price"><strong>16 000-<br>19 000 Ft</strong></span>
-                                <span class="project-creator">50x70cm-es</span>
-                              </figcaption>
-                            </figure>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-ms-10 col-md-4 ">
-                          <div class="project">
-                            <figure class="img-responsive">
-                              <figcaption>
-                                <span class="project-details">Nagyobb képek</span>
-                                <span class="project-price"><strong>16 000-<br>19 000 Ft</strong></span>
-                                <span class="project-creator">50x70cm-es</span>
-                              </figcaption>
-                            </figure>
-                          </div>
-                        </div>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-                <div class="card-footer">
-                  <button type="button" class="btn artists-btn-circle"><i class="fab fa-facebook-f fa-lg"></i></button>
-                  <button type="button" class="btn artists-btn-circle"><i class="fab fa-twitter fa-lg"></i></button>
-                  <button type="button" class="btn artists-btn-circle"><i class="fas fa-globe fa-lg"></i></button>
-                  <button type="button" class="btn artists-btn-circle"><i class="far fa-envelope fa-lg"></i></button>
-                  <button type="button" class="btn artists-btn-circle"><i class="fas fa-phone fa-lg"></i></button>
-                </div>
-              </div>
-            </div>
-          </li>
-
-          <li class="artist" id="artist3">
-            <div class="cbp_tmtime_artists"><span>Kapocsiné Ballagós Márta</span>
-              <span><i class="fas fa-map-marker-alt">&nbsp</i>Budapest</span>
-            </div>
-            <div class="cbp_tmicon_artists bg-info_artists">
-              <img alt="Profile Picture" class="profile-img widget-img img-circle img-border-light rounded-circle" src="images/avatar3.jpg">
-              <img alt="artist-badge" class="artist-badge img-circle rounded-circle" src="images/badge.png">
-            </div>
-            <div class="cbp_tmlabel_artists">
-              <div class="card artist-card text-center">
-                <div class="card-header tab-card-header">
-                  <ul class="nav nav-tabs card-header-tabs" id="artist3-myTab" role="tablist">
-                    <li class="nav-item">
-                      <a class="tab-text nav-link active" id="artist3-one-tab" data-toggle="tab" href="#artist3-one" role="tab" aria-controls="One" aria-selected="true">Sztorim</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="tab-text nav-link" id="artist3-two-tab" data-toggle="tab" href="#artist3-two" role="tab" aria-controls="Two" aria-selected="false">Műveim</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="tab-text nav-link" id="artist3-three-tab" data-toggle="tab" href="#artist3-three" role="tab" aria-controls="Three" aria-selected="false">Áraim</a>
-                    </li>
-                  </ul>
-                </div>
-                <div class="tab-content artist-tab-content" id="artist3-myTabContent">
-                  <div class="tab-pane fade show active p-3" id="artist3-one" role="tabpanel" aria-labelledby="artist3-one-tab">
-                    <div class="introduction hide-scrollbar">
-                      <p class="card-text ">
-                        Sziasztok! Szeretném nektek bemutatni saját készítésű portré festményeimet, amelyeket nagy gondossággal készítettem el :)
-                        Minden kép egyedi, minden arc különleges és sajátos. Nehéz visszaadni azt egy porté segítségével, de igyekszem mindenből kihozni a maximumot! :)
-                        Várom lelkes megrendelőimet, akik szeretnék megörökíteni a pillanatot az utókornak és egy csodálatos festményt szeretnének felszögelni a nappali falára!
-                        Utóirat: A görgetés miatt legyen egy kicsit hosszabb szöveg, ezért ismétlés:
-                        Várom lelkes megrendelőimet, akik szeretnék megörökíteni a pillanatot az utókornak és egy csodálatos festményt szeretnének felszögelni a nappali falára!
-                      </p>
-                    </div>
-                    <hr class="artists-card-line">
-                    <div class="awards hide-scrollbar">
-                      <span><i class="fas fa-trophy">&nbsp</i>Ezüstgerely díj</span><br>
-                      <span><i class="fas fa-trophy">&nbsp</i>Herczeg Klára-díj</span><br>
-                      <span><i class="fas fa-trophy">&nbsp</i>Munkácsy Mihály-díj</span><br>
-                    </div>
-                    <hr class="artists-card-line">
-                    <div class="tags">
-                      <span class="badge badge-pill badge-primary">Festmény</span>
-                      <span class="badge badge-pill badge-primary">Olaj</span>
-                      <span class="badge badge-pill badge-primary">Vászon</span>
-                      <span class="badge badge-pill badge-primary">Portré</span>
-                    </div>
-                  </div>
-                  <div class="tab-pane fade p-3" id="artist3-two" role="tabpanel" aria-labelledby="artist3-two-tab">
-                    <div id="artist3-slider" class="carousel slide" data-ride="carousel" data-interval="false" data-touch="true">
-                      <ol class="carousel-indicators">
-                        <li data-target="#artist3-slider" data-slide-to="0" class="active"></li>
-                        <li data-target="#artist3-slider" data-slide-to="1"></li>
-                        <li data-target="#artist3-slider" data-slide-to="2"></li>
-                      </ol>
-                      <div class="carousel-inner">
-                        <div class="carousel-item active">
-                          <img class="art d-block" src="images/painting1.jpg">
-                        </div>
-                        <div class="carousel-item">
-                          <img class="art d-block" src="images/painting2.jpg">
-                        </div>
-                        <div class="carousel-item">
-                          <img class="art d-block" src="images/painting3.jpg">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="tab-pane fade p-3" id="artist3-three" role="tabpanel" aria-labelledby="artist3-three-tab">
-                    <div class="container price-list hide-scrollbar">
-
-                      <div class="row">
-                        <div class="col-ms-10 col-md-4 ">
-                          <div class="project">
-                            <figure class="img-responsive">
-                              <figcaption>
-                                <span class="project-details">Kisebb képek</span>
-                                <span class="project-price"><strong>3 900 Ft</strong></span>
-                                <span class="project-creator">20x30cm-es</span>
-                              </figcaption>
-                            </figure>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-ms-10 col-md-4 ">
-                          <div class="project">
-                            <figure class="img-responsive">
-                              <figcaption>
-                                <span class="project-details">Nagyobb képek</span>
-                                <span class="project-price"><strong>16 000-<br>19 000 Ft</strong></span>
-                                <span class="project-creator">50x70cm-es</span>
-                              </figcaption>
-                            </figure>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-ms-10 col-md-4 ">
-                          <div class="project">
-                            <figure class="img-responsive">
-                              <figcaption>
-                                <span class="project-details">Nagyobb képek</span>
-                                <span class="project-price"><strong>16 000-<br>19 000 Ft</strong></span>
-                                <span class="project-creator">50x70cm-es</span>
-                              </figcaption>
-                            </figure>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-ms-10 col-md-4 ">
-                          <div class="project">
-                            <figure class="img-responsive">
-                              <figcaption>
-                                <span class="project-details">Nagyobb képek</span>
-                                <span class="project-price"><strong>16 000-<br>19 000 Ft</strong></span>
-                                <span class="project-creator">50x70cm-es</span>
-                              </figcaption>
-                            </figure>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-ms-10 col-md-4 ">
-                          <div class="project">
-                            <figure class="img-responsive">
-                              <figcaption>
-                                <span class="project-details">Nagyobb képek</span>
-                                <span class="project-price"><strong>16 000-<br>19 000 Ft</strong></span>
-                                <span class="project-creator">50x70cm-es</span>
-                              </figcaption>
-                            </figure>
-                          </div>
-                        </div>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-                <div class="card-footer">
-                  <button type="button" class="btn artists-btn-circle"><i class="fab fa-facebook-f fa-lg"></i></button>
-                  <button type="button" class="btn artists-btn-circle"><i class="fab fa-twitter fa-lg"></i></button>
-                  <button type="button" class="btn artists-btn-circle"><i class="fas fa-globe fa-lg"></i></button>
-                  <button type="button" class="btn artists-btn-circle"><i class="far fa-envelope fa-lg"></i></button>
-                  <button type="button" class="btn artists-btn-circle"><i class="fas fa-phone fa-lg"></i></button>
-                </div>
-              </div>
-            </div>
-          </li>
-
-          <li class="artist" id="artist4">
-            <div class="cbp_tmtime_artists"><span>Kapocsiné Ballagós Márta</span>
-              <span><i class="fas fa-map-marker-alt">&nbsp</i>Budapest</span>
-            </div>
-            <div class="cbp_tmicon_artists bg-info_artists">
-              <img alt="Profile Picture" class="profile-img widget-img img-circle img-border-light rounded-circle" src="images/avatar4.png">
-              <img alt="artist-badge" class="artist-badge img-circle rounded-circle" src="images/badge.png">
-            </div>
-            <div class="cbp_tmlabel_artists">
-              <div class="card artist-card text-center">
-                <div class="card-header tab-card-header">
-                  <ul class="nav nav-tabs card-header-tabs" id="artist4-myTab" role="tablist">
-                    <li class="nav-item">
-                      <a class="tab-text nav-link active" id="artist4-one-tab" data-toggle="tab" href="#artist4-one" role="tab" aria-controls="One" aria-selected="true">Sztorim</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="tab-text nav-link" id="artist4-two-tab" data-toggle="tab" href="#artist4-two" role="tab" aria-controls="Two" aria-selected="false">Műveim</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="tab-text nav-link" id="artist4-three-tab" data-toggle="tab" href="#artist4-three" role="tab" aria-controls="Three" aria-selected="false">Áraim</a>
-                    </li>
-                  </ul>
-                </div>
-                <div class="tab-content artist-tab-content" id="artist4-myTabContent">
-                  <div class="tab-pane fade show active p-3" id="artist4-one" role="tabpanel" aria-labelledby="artist4-one-tab">
-                    <div class="introduction hide-scrollbar">
-                      <p class="card-text ">
-                        Sziasztok! Szeretném nektek bemutatni saját készítésű portré festményeimet, amelyeket nagy gondossággal készítettem el :)
-                        Minden kép egyedi, minden arc különleges és sajátos. Nehéz visszaadni azt egy porté segítségével, de igyekszem mindenből kihozni a maximumot! :)
-                        Várom lelkes megrendelőimet, akik szeretnék megörökíteni a pillanatot az utókornak és egy csodálatos festményt szeretnének felszögelni a nappali falára!
-                        Utóirat: A görgetés miatt legyen egy kicsit hosszabb szöveg, ezért ismétlés:
-                        Várom lelkes megrendelőimet, akik szeretnék megörökíteni a pillanatot az utókornak és egy csodálatos festményt szeretnének felszögelni a nappali falára!
-                      </p>
-                    </div>
-                    <hr class="artists-card-line">
-                    <div class="awards hide-scrollbar">
-                      <span><i class="fas fa-trophy">&nbsp</i>Ezüstgerely díj</span><br>
-                      <span><i class="fas fa-trophy">&nbsp</i>Herczeg Klára-díj</span><br>
-                      <span><i class="fas fa-trophy">&nbsp</i>Munkácsy Mihály-díj</span><br>
-                    </div>
-                    <hr class="artists-card-line">
-                    <div class="tags">
-                      <span class="badge badge-pill badge-primary">Festmény</span>
-                      <span class="badge badge-pill badge-primary">Olaj</span>
-                      <span class="badge badge-pill badge-primary">Vászon</span>
-                      <span class="badge badge-pill badge-primary">Portré</span>
-                    </div>
-                  </div>
-                  <div class="tab-pane fade p-3" id="artist4-two" role="tabpanel" aria-labelledby="artist4-two-tab">
-                    <div id="artist4-slider" class="carousel slide" data-ride="carousel" data-interval="false" data-touch="true">
-                      <ol class="carousel-indicators">
-                        <li data-target="#artist4-slider" data-slide-to="0" class="active"></li>
-                        <li data-target="#artist4-slider" data-slide-to="1"></li>
-                        <li data-target="#artist4-slider" data-slide-to="2"></li>
-                      </ol>
-                      <div class="carousel-inner">
-                        <div class="carousel-item active">
-                          <img class="art d-block" src="images/painting1.jpg">
-                        </div>
-                        <div class="carousel-item">
-                          <img class="art d-block" src="images/painting2.jpg">
-                        </div>
-                        <div class="carousel-item">
-                          <img class="art d-block" src="images/painting3.jpg">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="tab-pane fade p-3" id="artist4-three" role="tabpanel" aria-labelledby="artist4-three-tab">
-                    <div class="container price-list hide-scrollbar">
-
-                      <div class="row">
-                        <div class="col-ms-10 col-md-4 ">
-                          <div class="project">
-                            <figure class="img-responsive">
-                              <figcaption>
-                                <span class="project-details">Kisebb képek</span>
-                                <span class="project-price"><strong>3 900 Ft</strong></span>
-                                <span class="project-creator">20x30cm-es</span>
-                              </figcaption>
-                            </figure>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-ms-10 col-md-4 ">
-                          <div class="project">
-                            <figure class="img-responsive">
-                              <figcaption>
-                                <span class="project-details">Nagyobb képek</span>
-                                <span class="project-price"><strong>16 000-<br>19 000 Ft</strong></span>
-                                <span class="project-creator">50x70cm-es</span>
-                              </figcaption>
-                            </figure>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-ms-10 col-md-4 ">
-                          <div class="project">
-                            <figure class="img-responsive">
-                              <figcaption>
-                                <span class="project-details">Nagyobb képek</span>
-                                <span class="project-price"><strong>16 000-<br>19 000 Ft</strong></span>
-                                <span class="project-creator">50x70cm-es</span>
-                              </figcaption>
-                            </figure>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-ms-10 col-md-4 ">
-                          <div class="project">
-                            <figure class="img-responsive">
-                              <figcaption>
-                                <span class="project-details">Nagyobb képek</span>
-                                <span class="project-price"><strong>16 000-<br>19 000 Ft</strong></span>
-                                <span class="project-creator">50x70cm-es</span>
-                              </figcaption>
-                            </figure>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-ms-10 col-md-4 ">
-                          <div class="project">
-                            <figure class="img-responsive">
-                              <figcaption>
-                                <span class="project-details">Nagyobb képek</span>
-                                <span class="project-price"><strong>16 000-<br>19 000 Ft</strong></span>
-                                <span class="project-creator">50x70cm-es</span>
-                              </figcaption>
-                            </figure>
-                          </div>
-                        </div>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-                <div class="card-footer">
-                  <button type="button" class="btn artists-btn-circle"><i class="fab fa-facebook-f fa-lg"></i></button>
-                  <button type="button" class="btn artists-btn-circle"><i class="fab fa-twitter fa-lg"></i></button>
-                  <button type="button" class="btn artists-btn-circle"><i class="fas fa-globe fa-lg"></i></button>
-                  <button type="button" class="btn artists-btn-circle"><i class="far fa-envelope fa-lg"></i></button>
-                  <button type="button" class="btn artists-btn-circle"><i class="fas fa-phone fa-lg"></i></button>
-                </div>
-              </div>
-            </div>
-          </li>
-
+        <ul class="cbp_tmtimeline_artists" id="cbp_tmtimeline_artists">
 
           <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="modal">
             <div class="modal-dialog modal-lg">
@@ -706,6 +488,16 @@
           </div>
 
         </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="contact-modal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-body">
+          <p id="contact-modal-body"></p>
+        </div>
       </div>
     </div>
   </div>

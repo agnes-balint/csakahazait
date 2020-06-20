@@ -16,17 +16,74 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
   <script type="text/javascript">
+  function generateText(data) {
+    var logo
+    var title
+    var text
+
+    if(typeof(data[0]) === 'undefined')
+    {
+      return null;
+    }
+    else
+    {
+      $.each(data, function( index, row )
+      {
+        if(index != 0)
+        {
+          $.each(row, function( index, colData)
+          {
+            if(index == 0){
+              logo = colData
+            }
+            if(index == 1){
+              title = colData
+            }
+            if(index == 2){
+              text = colData
+            }
+          });
+
+          logo = logo.replace("\"></i>", " fa-2x\"></i>")
+
+          var appendString = "<div class='col-xs-12 col-sm-12 col-md-6 col-lg-6 p-2'>" +
+          "        <div class='rule-card card p-3 shadow text-center border-0'>" +
+          "          <div class='card-body rule-card-body'>" +logo+
+          "            <h2 class='card-title display-1' style='font-size:3.0vmin;'>"+title+"</h2>" +
+          "            <hr class='hr-line'>" +
+          "            <p>"+text+"</p>" +
+          "          </div>" +
+          "        </div>" +
+          "      </div>"
+
+          $("#rules-row").append(appendString);
+
+        }
+
+      });
+    }
+
+  }
+
+  var data;
+  var options={"separator" : ";"};
+    $.ajax({
+      type: "GET",
+      url: "datas/rules/rules.csv",
+      dataType: "text",
+      success: function(response)
+      {
+        data = $.csv.toArrays(response, options);
+        generateText(data);
+      }
+    });
+
     $(document).ready(function() {
       $("#menu").load("navbar.html");
       $("#footer").load("footer.html");
     });
-    $(document).on('click', '.art', function() {
-      var src = $(this).attr('src');
-      $("#model-img").attr('src', src);
-      $("#modal").modal('show');
-    })
 
     $(document).on('click', function() {
       $('.collapse').collapse('hide');
@@ -41,122 +98,8 @@
 
 
   <div class="container rules-container">
-    <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 p-2">
-        <div class="rule-card card p-3 shadow text-center border-0">
-          <div class="card-body rule-card-body">
-            <i class="fas fa-comment fa-2x"></i>
-            <h2 class="card-title display-1" style="font-size:3.0vmin;">Posztok száma</h2>
-            <hr class="hr-line">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus egestas condimentum libero non pharetra.
-              Quisque vehicula nulla at iaculis euismod. In vulputate ex quis velit rhoncus laoreet. In vestibulum urna
-              vitae nisl tempus congue. Integer in lacus neque. Fusce magna sem, pellentesque sit amet sem et, pellentesque
-              pretium nibh. Nullam a nunc gravida, dignissim est sit amet, luctus justo. Nam nulla leo, suscipit eu eros
-              quis, consequat aliquam nunc. Duis nisi elit, lacinia sed vestibulum vel, semper placerat urna. Mauris
-              suscipit, leo vel efficitur tempus, arcu sapien bibendum urna, vitae fringilla ligula nunc et massa.
-              Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris sagittis nisi
-              ex, eget varius dui accumsan et. Donec aliquet arcu vel lacus suscipit, nec eleifend neque vulputate.
-              Phasellus neque orci, aliquam eu metus et, efficitur hendrerit ante. Nunc sed eros a turpis auctor consectetur.
-              Suspendisse potenti.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 p-2">
-        <div class="rule-card card p-3 shadow text-center border-0">
-          <div class="card-body rule-card-body">
-            <i class="fas fa-comment fa-2x"></i>
-            <h2 class="card-title display-1" style="font-size:3.0vmin;">Posztok száma</h2>
-            <hr class="hr-line">
-            <p>A csoport posztjainak mennyiségét és a posztolási sebességet figyelembe véve úgy döntöttünk,
-              hogy havonta egy alkotó maximum 4 posztot tehet fel. Az újabb posztokat automatikusan el fogjuk utasítani.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 p-2">
-        <div class="rule-card card p-3 shadow text-center border-0">
-          <div class="card-body rule-card-body">
-            <i class="fas fa-comment fa-2x"></i>
-            <h2 class="card-title display-1" style="font-size:3.0vmin;">Posztok száma</h2>
-            <hr class="hr-line">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus egestas condimentum libero non pharetra.
-              Quisque vehicula nulla at iaculis euismod. In vulputate ex quis velit rhoncus laoreet. In vestibulum urna
-              vitae nisl tempus congue. Integer in lacus neque. Fusce magna sem, pellentesque sit amet sem et, pellentesque
-              pretium nibh. Nullam a nunc gravida, dignissim est sit amet, luctus justo. Nam nulla leo, suscipit eu eros
-              quis, consequat aliquam nunc. Duis nisi elit, lacinia sed vestibulum vel, semper placerat urna. Mauris
-              suscipit, leo vel efficitur tempus, arcu sapien bibendum urna, vitae fringilla ligula nunc et massa.
-              Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris sagittis nisi
-              ex, eget varius dui accumsan et. Donec aliquet arcu vel lacus suscipit, nec eleifend neque vulputate.
-              Phasellus neque orci, aliquam eu metus et, efficitur hendrerit ante. Nunc sed eros a turpis auctor consectetur.
-              Suspendisse potenti.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 p-2">
-        <div class="rule-card card p-3 shadow text-center border-0">
-          <div class="card-body rule-card-body">
-            <i class="fas fa-comment fa-2x"></i>
-            <h2 class="card-title display-1" style="font-size:3.0vmin;">Posztok száma</h2>
-            <hr class="hr-line">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus egestas condimentum libero non pharetra.
-              Quisque vehicula nulla at iaculis euismod. In vulputate ex quis velit rhoncus laoreet. In vestibulum urna
-              vitae nisl tempus congue. Integer in lacus neque. Fusce magna sem, pellentesque sit amet sem et, pellentesque
-              pretium nibh. Nullam a nunc gravida, dignissim est sit amet, luctus justo. Nam nulla leo, suscipit eu eros
-              quis, consequat aliquam nunc. Duis nisi elit, lacinia sed vestibulum vel, semper placerat urna. Mauris
-              suscipit, leo vel efficitur tempus, arcu sapien bibendum urna, vitae fringilla ligula nunc et massa.
-              Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris sagittis nisi
-              ex, eget varius dui accumsan et. Donec aliquet arcu vel lacus suscipit, nec eleifend neque vulputate.
-              Phasellus neque orci, aliquam eu metus et, efficitur hendrerit ante. Nunc sed eros a turpis auctor consectetur.
-              Suspendisse potenti.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 p-2">
-        <div class="rule-card card p-3 shadow text-center border-0">
-          <div class="card-body rule-card-body">
-            <i class="fas fa-comment fa-2x"></i>
-            <h2 class="card-title display-1" style="font-size:3.0vmin;">Posztok száma</h2>
-            <hr class="hr-line">
-            <p>A csoport posztjainak mennyiségét és a posztolási sebességet figyelembe véve úgy döntöttünk,
-              hogy havonta egy alkotó maximum 4 posztot tehet fel. Az újabb posztokat automatikusan el fogjuk utasítani.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 p-2">
-        <div class="rule-card card p-3 shadow text-center border-0">
-          <div class="card-body rule-card-body">
-            <i class="fas fa-comment fa-2x"></i>
-            <h2 class="card-title display-1" style="font-size:3.0vmin;">Posztok száma</h2>
-            <hr class="hr-line">
-            <p>A csoport posztjainak mennyiségét és a posztolási sebességet figyelembe véve úgy döntöttünk,
-              hogy havonta egy alkotó maximum 4 posztot tehet fel. Az újabb posztokat automatikusan el fogjuk utasítani.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 p-2">
-        <div class="rule-card card p-3 shadow text-center border-0">
-          <div class="card-body rule-card-body">
-            <i class="fas fa-comment fa-2x"></i>
-            <h2 class="card-title display-1" style="font-size:3.0vmin;">Posztok száma</h2>
-            <hr class="hr-line">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus egestas condimentum libero non pharetra.
-              Quisque vehicula nulla at iaculis euismod. In vulputate ex quis velit rhoncus laoreet. In vestibulum urna
-              vitae nisl tempus congue. Integer in lacus neque. Fusce magna sem, pellentesque sit amet sem et, pellentesque
-              pretium nibh. Nullam a nunc gravida, dignissim est sit amet, luctus justo. Nam nulla leo, suscipit eu eros
-              quis, consequat aliquam nunc. Duis nisi elit, lacinia sed vestibulum vel, semper placerat urna. Mauris
-              suscipit, leo vel efficitur tempus, arcu sapien bibendum urna, vitae fringilla ligula nunc et massa.
-              Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris sagittis nisi
-              ex, eget varius dui accumsan et. Donec aliquet arcu vel lacus suscipit, nec eleifend neque vulputate.
-              Phasellus neque orci, aliquam eu metus et, efficitur hendrerit ante. Nunc sed eros a turpis auctor consectetur.
-              Suspendisse potenti.</p>
-          </div>
-        </div>
-      </div>
+    <div class="row" id="rules-row">
+      
 
     </div>
   </div>

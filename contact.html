@@ -16,8 +16,119 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
 
   <script type="text/javascript">
+
+  function generateText(data) {
+    var title
+    var description
+    var facebook
+    var twitter
+    var skype
+    var phone
+    var mail
+
+    if(typeof(data[0]) === 'undefined')
+    {
+      return null;
+    }
+    else
+    {
+      $.each(data, function( index, row )
+      {
+        if(index != 0)
+        {
+          adminNumber = index;
+          $.each(row, function( index, colData)
+          {
+            if(index == 0){
+              title = colData
+            }
+            if(index == 1){
+              description = colData
+            }
+            if(index == 2){
+              facebook = colData
+            }
+            if(index == 3){
+              twitter = colData
+            }
+            if(index == 4){
+              skype = colData
+            }
+            if(index == 5){
+              phone = colData
+            }
+            if(index == 6){
+              mail = colData
+            }
+          });
+
+          $("#contact-title").append(title);
+          $("#contact-description").append(description);
+          createContact(facebook, twitter, skype, mail, phone)
+        }
+
+      });
+    }
+
+  }
+
+  var data;
+  var options={"separator" : ";"};
+    $.ajax({
+      type: "GET",
+      url: "datas/contact/contact.csv",
+      dataType: "text",
+      success: function(response)
+      {
+        data = $.csv.toArrays(response, options);
+        generateText(data);
+      }
+    });
+
+    function createContact(facebook, twitter, skype, mail, phone){
+      var contactText = ""
+
+      if(facebook != ""){
+        contactText = contactText.concat("				<div class='info d-flex align-items-center'>" +
+                                          "                <i class='fab fa-facebook-f'></i>" +
+                                          "                <a href='"+facebook+"' target='_blank'><span>&nbsp facebook link</span></a>" +
+                                          "              </div>")
+        }
+
+      if(twitter != ""){
+        contactText = contactText.concat("              <div class='info d-flex align-items-center'>" +
+                                          "                <i class='fab fa-twitter'></i>" +
+                                          "                <a href='"+twitter+"' target='_blank'><span>twitter link</span></a>" +
+                                          "              </div>")
+      }
+
+      if(skype != ""){
+        contactText = contactText.concat("              <div class='info d-flex align-items-center'>" +
+                                          "                <i class='fab fa-skype'></i>" +
+                                          "                <span>"+skype+"</span>" +
+                                          "              </div>")
+      }
+
+      if(phone != ""){
+        contactText = contactText.concat("              <div class='info d-flex align-items-center'>" +
+                                          "                <i class='fas fa-phone'></i>" +
+                                          "                <span>"+phone+"</span>" +
+                                          "              </div>")
+                                                }
+
+      if(mail != ""){
+        contactText = contactText.concat("              <div class='info d-flex align-items-center'>" +
+                                          "                <i class='far fa-envelope'></i>" +
+                                          "                <span>"+mail+"</span>" +
+                                          "              </div>")
+      }
+
+      $("#contact-datas").append(contactText);
+    }
+
     $(document).ready(function() {
       $("#menu").load("navbar.html");
       $("#footer").load("footer.html");
@@ -44,9 +155,23 @@
     <div class="container contact-container">
       <div class="main wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
         <div class="row">
+
           <div class="col-lg-6 col-md-6 col-sm-6">
-            <div class="right">
+            <div class="right" id="contact-datas">
               <h4>Kapcsolat információk</h4>
+
+              <!-- <div class="info d-flex align-items-center">
+                <i class="fab fa-facebook-f"></i>
+                <a href="http://www.facebook.hu" target="_blank"><span>&nbsp facebook link</span></a>
+              </div>
+              <div class="info d-flex align-items-center">
+                <i class="fab fa-twitter"></i>
+                <a href="http://www.twitter.com" target="_blank"><span>twitter link</span></a>
+              </div>
+              <div class="info d-flex align-items-center">
+                <i class="fab fa-skype"></i>
+                <span>skype_account</span>
+              </div>
               <div class="info d-flex align-items-center">
                 <i class="fas fa-phone"></i>
                 <span>0630/123-56-78</span>
@@ -54,29 +179,15 @@
               <div class="info d-flex align-items-center">
                 <i class="far fa-envelope"></i>
                 <span>test@test.com</span>
-              </div>
-              <div class="info d-flex align-items-center">
-                <i class="fab fa-skype"></i>
-                <span>skype_account</span>
-              </div>
-              <div class="info d-flex align-items-center">
-                <i class="fab fa-twitter"></i>
-                <a href="http://www.twitter.com" target="_blank"><span>twitter link</span></a>
-              </div>
-              <div class="info d-flex align-items-center">
-                <i class="fab fa-facebook-f"></i>
-                <a href="http://www.facebook.hu" target="_blank"><span>&nbsp facebook link</span></a>
-              </div>
+              </div> -->
+
             </div>
           </div>
 
           <div class="col-lg-6 col-md-6 col-sm-6 left">
-            <h3>Küldj üzenetet!</h3>
+            <h3 id="contact-title"></h3>
 
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam aliquet et ante et dapibus. Nulla orci lorem, dignissim eget tincidunt eu,
-              aliquam at nunc. Nullam interdum lacinia neque, sit amet volutpat justo feugiat vel. Ut lacinia, risus non posuere faucibus, neque nisi posuere
-              diam, ac eleifend massa ipsum nec orci. Aenean ultricies faucibus placerat. Morbi bibendum ut velit ac fringilla. Integer commodo libero sit amet maximus dapibus.
-            </p>
+            <p id="contact-description"></p>
           </div>
           <!-- Left -->
 

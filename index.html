@@ -16,21 +16,46 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
   <script type="text/javascript">
-    // to top right away
+
+  function generateText(data) {
+    if(typeof(data[0]) === 'undefined')
+    {
+      return null;
+    }
+    else
+    {
+  		$.each(data, function( index, row )
+      {
+        if(index != 0){
+          $.each(row, function( index, colData)
+          {
+            $("#index-text").append(colData);
+          });
+        }
+
+      });
+	  }
+  }
+
+  var data;
+  var options={"separator" : ";"};
+    $.ajax({
+      type: "GET",
+      url: "datas/index/description.csv",
+      dataType: "text",
+      success: function(response)
+      {
+        data = $.csv.toArrays(response, options);
+        generateText(data);
+      }
+    });
 
     $(document).ready(function() {
       $("#menu").load("navbar.html");
       $("#footer").load("footer.html");
     });
-
-    $(document).on('click', '.art', function() {
-      console.log("4");
-      var src = $(this).attr('src');
-      $("#model-img").attr('src', src);
-      $("#modal").modal('show');
-    })
 
     $(document).on('click', function() {
       $('.collapse').collapse('hide');
@@ -48,10 +73,7 @@
       <div class="row">
         <div class="col-md-6">
           <p class="promo-title index-text">Vásárolj Te is hazai termelőktől!</p>
-          <p class="index-text">Suspendisse porttitor neque consequat lorem dictum ultricies. Sed sed orci dolor.
-            Nam non lorem libero. Nunc volutpat leo a lectus suscipit, eget tempor metus euismod. Cras vel pharetra nisi.
-            Pellentesque malesuada, massa eget maximus semper, lorem tellus luctus est, sed bibendum quam ipsum eu risus.
-            Proin non gravida ante.</p>
+          <p class="index-text" id="index-text"></p>
           <a class="btn btn-lg btn-outline-dark" href="https://www.facebook.com/groups/2389278021369945/" role="button" target="_blank"><i class="fab fa-facebook"></i>Csatlakozom!</a>
         </div>
         <div class="col-md-6 text-center my-auto">

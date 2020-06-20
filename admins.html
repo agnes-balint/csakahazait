@@ -14,18 +14,166 @@
   <!-- SCRIPTS -->
   <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
+
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
   <script type="text/javascript">
+  $(document).ready(function(){
+      $('[data-toggle="popover"]').popover();
+  });
+
     $(document).ready(function(){
         $("#menu").load("navbar.html");
         $("#footer").load("footer.html");
     });
-    $(document).on('click', '.art', function() {
-      var src = $(this).attr('src');
-      $("#model-img").attr('src', src);
-      $("#modal").modal('show');
+
+    function generateText(data) {
+      var name
+      var image
+      var location
+      var role
+      var story
+      var facebook
+      var twitter
+      var web
+      var phone
+      var mail
+      var adminNumber
+
+      if(typeof(data[0]) === 'undefined')
+      {
+        return null;
+      }
+      else
+      {
+        $.each(data, function( index, row )
+        {
+          if(index != 0)
+          {
+            adminNumber = index;
+            $.each(row, function( index, colData)
+            {
+              if(index == 0){
+                name = colData
+              }
+              if(index == 1){
+                image = colData
+              }
+              if(index == 2){
+                location = colData
+              }
+              if(index == 3){
+                role = colData
+              }
+              if(index == 4){
+                story = colData
+              }
+              if(index == 5){
+                facebook = colData
+              }
+              if(index == 6){
+                twitter = colData
+              }
+              if(index == 7){
+                web = colData
+              }
+              if(index == 8){
+                phone = colData
+              }
+              if(index == 9){
+                mail = colData
+              }
+            });
+
+            var appendString = "<div class='col-lg-3 col-md-4 col-sm-6'>" +
+                                "      <div class='panel widget profile'>" +
+                                "        <div class='widget-header'>" +
+                                "" +
+                                "        </div>" +
+                                "        <div class='widget-body text-center'>" +
+                                "          <img alt='Profile Picture' class='admins-widget-img img-circle admin-img-border-light rounded-circle' src='datas/admins/"+image+"'>" +
+                                "          <h5>"+name+"</h5>" +
+                                "          <p class='text-muted mar-btm'>"+role+"</p>" +
+                                "          <p><i class='fa fa-map-marker' aria-hidden='true'></i>"+location+"</p>" +
+                                "          <hr class='admins-card-line'>" +
+                                "          <div class='bio hide-scrollbar'><span>"+story+"</span></div>" +
+                                "          <div class='row user-social-detail'>" +
+                                "            <div class='col-lg-12 col-sm-12 col-12' id='adminContact"+adminNumber+"'>" +
+                                "            </div>" +
+                                "          </div>" +
+                                "        </div>" +
+                                "      </div>" +
+                                "    </div>"
+
+            $("#admin-profiles").append(appendString);
+            createContact(adminNumber, facebook, twitter, web, mail, phone)
+
+          }
+
+        });
+      }
+
+    }
+
+    var data;
+    var options={"separator" : ";"};
+      $.ajax({
+        type: "GET",
+        url: "datas/admins/admins.csv",
+        dataType: "text",
+        success: function(response)
+        {
+          data = $.csv.toArrays(response, options);
+          generateText(data);
+        }
+      });
+
+      function createContact(adminNumber, facebook, twitter, web, mail, phone){
+        var contactText = ""
+
+        if(facebook != ""){
+          contactText = contactText.concat("		  <a type='button' class='btn admins-btn-circle' href='"+facebook+"' target='_blank'><i class='fab fa-facebook-f fa-lg'></i></a>")
+        }
+        else {
+          contactText = contactText.concat("		  <a type='button' class='btn admins-btn-circle-disable'><i class='fab fa-facebook-f fa-lg'></i></a>")
+        }
+        if(twitter != ""){
+          contactText = contactText.concat("		  <a type='button' class='btn admins-btn-circle' href='"+twitter+"' target='_blank'><i class='fab fa-twitter fa-lg'></i></a>")
+        }
+        else {
+          contactText = contactText.concat("		  <a type='button' class='btn admins-btn-circle-disable'><i class='fab fa-twitter fa-lg'></i></a>")
+        }
+
+        if(web != ""){
+          contactText = contactText.concat("		  <a type='button' class='btn admins-btn-circle' href='"+web+"' target='_blank'><i class='fas fa-globe fa-lg'></i></a>")
+        }
+        else {
+          contactText = contactText.concat("		  <a type='button' class='btn admins-btn-circle-disable'><i class='fas fa-globe fa-lg'></i></a>")
+        }
+
+        if(mail != ""){
+          contactText = contactText.concat("		  <a type='button' class='btn admins-btn-circle example-popover' contact-content='"+mail+"'><i class='far fa-envelope fa-lg'></i></a>")
+        }
+        else {
+          contactText = contactText.concat("		  <a type='button' class='btn admins-btn-circle-disable'><i class='far fa-envelope fa-lg'></i></a>")
+        }
+
+        if(phone != ""){
+          contactText = contactText.concat("		  <a type='button' class='btn admins-btn-circle example-popover' contact-content="+phone+"><i class='fas fa-phone fa-lg'></i></a>")
+        }
+        else {
+          contactText = contactText.concat("		  <a type='button' class='btn admins-btn-circle-disable'><i class='fas fa-phone fa-lg'></i></a>")
+        }
+        $("#adminContact"+adminNumber).append(contactText);
+      }
+
+    $(document).on('click', '.example-popover', function() {
+      $("#contact-modal-body").empty();
+      var src = $(this).attr('contact-content');
+      $("#contact-modal-body").append(src);
+      $("#contact-modal").modal('show');
     })
 
     $(document).on('click',function(){
@@ -39,51 +187,16 @@
 
   <div id="menu"></div>
 
-  <div class="row bootstrap snippets profiles">
 
-    <div class="col-lg-3 col-md-4 col-sm-6">
-      <div class="panel widget profile">
-        <div class="widget-header">
+  <div class="row bootstrap snippets profiles" id="admin-profiles">
 
-        </div>
-        <div class="widget-body text-center">
-          <img alt="Profile Picture" class="admins-widget-img img-circle admin-img-border-light rounded-circle" src="images/avatar2.jpg">
-          <h5>Jane Doe</h5>
-          <p class="text-muted mar-btm">Administrator</p>
-          <p><i class="fa fa-map-marker" aria-hidden="true"></i> New Jersey, USA.</p>
+  </div>
 
-          <hr class="admins-card-line">
-          <div class="bio hide-scrollbar"><span>Lorem ips consectetur adipisium ,eiusmod tempor incididuin reprehendeanim.</span></div>
-          <div class="row user-social-detail">
-            <div class="col-lg-12 col-sm-12 col-12">
-              <button type="button" class="btn admins-btn-circle"><i class="fab fa-facebook-f fa-lg"></i></button>
-              <button type="button" class="btn admins-btn-circle"><i class="fab fa-facebook-f fa-lg"></i></button>
-              <button type="button" class="btn admins-btn-circle"><i class="fab fa-twitter fa-lg"></i></button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-lg-3 col-md-4 col-sm-6">
-      <div class="panel widget profile">
-        <div class="widget-header text-center" >
-        </div>
-        <div class="widget-body text-center">
-          <img alt="Profile Picture" class="admins-widget-img img-circle admin-img-border-light rounded-circle" src="images/avatar1.jpg">
-          <h5>John Addison</h5>
-          <p class="text-muted mar-btm">Administrator</p>
-          <p><i class="fa fa-map-marker" aria-hidden="true"></i> New Jersey, USA.</p>
-
-          <hr class="admins-card-line">
-          <div class="bio hide-scrollbar"><span>Lorem ips consectetur adipisium ,eiusmod tempor incididuin reprehendeanim.</span></div>
-          <div class="row user-social-detail">
-            <div class="col-lg-12 col-sm-12 col-12">
-              <button type="button" class="btn admins-btn-circle"><i class="fab fa-facebook-f fa-lg"></i></button>
-              <button type="button" class="btn admins-btn-circle"><i class="fab fa-facebook-f fa-lg"></i></button>
-              <button type="button" class="btn admins-btn-circle"><i class="fab fa-twitter fa-lg"></i></button>
-            </div>
-          </div>
+  <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="contact-modal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-body">
+          <p id="contact-modal-body"></p>
         </div>
       </div>
     </div>

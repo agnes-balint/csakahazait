@@ -16,17 +16,80 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
   <script type="text/javascript">
+
+  function generateText(data) {
+    var date
+    var day
+    var logo
+    var title
+    var text
+
+    if(typeof(data[0]) === 'undefined')
+    {
+      return null;
+    }
+    else
+    {
+      $.each(data, function( index, row )
+      {
+        if(index != 0)
+        {
+          $.each(row, function( index, colData)
+          {
+            if(index == 0){
+              date = colData
+            }
+            if(index == 1){
+              day = colData
+            }
+            if(index == 2){
+              logo = colData
+            }
+            if(index == 3){
+              title = colData
+            }
+            if(index == 4){
+              text = colData
+            }
+          });
+
+          var appendString = "<li>" +
+          "	<time class='cbp_tmtime'><span>"+date+"</span> <span>"+day+"</span></time>" +
+          "	<div class='cbp_tmicon bg-info'>"+logo+"</div>" +
+          "	<div class='cbp_tmlabel'>" +
+          "		<h4 class='news-text'>"+title+"</h4>" +
+          "		<p class='news-text'>"+text+"</p>" +
+          "	</div>" +
+          "</li>"
+
+          $("#cbp_tmtimeline").append(appendString);
+
+        }
+
+      });
+    }
+
+  }
+
+  var data;
+  var options={"separator" : ";"};
+    $.ajax({
+      type: "GET",
+      url: "datas/news/news.csv",
+      dataType: "text",
+      success: function(response)
+      {
+        data = $.csv.toArrays(response, options);
+        generateText(data);
+      }
+    });
+
     $(document).ready(function(){
         $("#menu").load("navbar.html");
         $("#footer").load("footer.html");
     });
-    $(document).on('click', '.art', function() {
-      var src = $(this).attr('src');
-      $("#model-img").attr('src', src);
-      $("#modal").modal('show');
-    })
 
     $(document).on('click',function(){
       $('.collapse').collapse('hide');
@@ -42,8 +105,8 @@
   <div class="container news-container">
     <div class="row">
         <div class="col-md-10">
-            <ul class="cbp_tmtimeline">
-                <li>
+            <ul class="cbp_tmtimeline" id="cbp_tmtimeline">
+                <!-- <li>
                     <time class="cbp_tmtime" datetime="2017-11-04T03:45"><span>2020.06.04. 15:03</span> <span>Csütörtök</span></time>
                     <div class="cbp_tmicon bg-info"><i class="fas fa-heart"></i></div>
                     <div class="cbp_tmlabel">
@@ -66,7 +129,7 @@
                           eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
                           mollit anim id est laborum.</p>
                     </div>
-                </li>
+                </li> -->
             </ul>
         </div>
     </div>
