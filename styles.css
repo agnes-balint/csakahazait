@@ -216,7 +216,7 @@ body {
   min-height: 100vh;
 }
 .home-container{
-  top: 200px;
+  /* top: 200px; */
 }
 .banner a {
   text-decoration: none;
