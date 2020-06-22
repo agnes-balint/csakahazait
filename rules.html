@@ -81,7 +81,9 @@
     });
 
     $(document).ready(function() {
-      $("#menu").load("navbar.html");
+      $("#menu").load("navbar.html", function() {
+        $('#navbar_rules').addClass('active');
+      });
       $("#footer").load("footer.html");
     });
 
@@ -96,10 +98,12 @@
 
   <div id="menu"></div>
 
+  <h1 class="section-title">A csakahazait! facebook csoport szabályzata</h1>
+  <div class="title-underline"></div>
 
   <div class="container rules-container">
     <div class="row" id="rules-row">
-      
+
 
     </div>
   </div>

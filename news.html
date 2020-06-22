@@ -25,6 +25,7 @@
     var logo
     var title
     var text
+    var image
 
     if(typeof(data[0]) === 'undefined')
     {
@@ -51,6 +52,9 @@
               title = colData
             }
             if(index == 4){
+              image = colData
+            }
+            if(index == 5){
               text = colData
             }
           });
@@ -59,8 +63,11 @@
           "	<time class='cbp_tmtime'><span>"+date+"</span> <span>"+day+"</span></time>" +
           "	<div class='cbp_tmicon bg-info'>"+logo+"</div>" +
           "	<div class='cbp_tmlabel'>" +
-          "		<h4 class='news-text'>"+title+"</h4>" +
-          "		<p class='news-text'>"+text+"</p>" +
+          "<div class='row'>" +
+          "   <div class='col-lg-12 '><h4 class='news-text'>"+title+"</h4></div>" +
+          "   <div class='col-lg-4 '><img src='datas/news/"+image+"' alt='' width='100%'></div>" +
+          "   <div class='col-lg-8 '><p class='news-text'>"+text+"</p></div>" +
+          " </div>" +
           "	</div>" +
           "</li>"
 
@@ -87,13 +94,16 @@
     });
 
     $(document).ready(function(){
-        $("#menu").load("navbar.html");
+        $("#menu").load("navbar.html", function() {
+          $('#navbar_news').addClass('active');
+        });
         $("#footer").load("footer.html");
     });
 
     $(document).on('click',function(){
       $('.collapse').collapse('hide');
     })
+
   </script>
 
 </head>
@@ -102,34 +112,14 @@
 
   <div id="menu"></div>
 
+  <h1 class="section-title">A csakahazait! oldalhoz kapcsolódó híreink</h1>
+  <div class="title-underline"></div>
+
   <div class="container news-container">
     <div class="row">
         <div class="col-md-10">
             <ul class="cbp_tmtimeline" id="cbp_tmtimeline">
-                <!-- <li>
-                    <time class="cbp_tmtime" datetime="2017-11-04T03:45"><span>2020.06.04. 15:03</span> <span>Csütörtök</span></time>
-                    <div class="cbp_tmicon bg-info"><i class="fas fa-heart"></i></div>
-                    <div class="cbp_tmlabel">
-                        <h4 class="news-text">Lorem ipsum dolor sit amet</h4>
-                        <p class="news-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                          ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                          aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
-                          eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-                          mollit anim id est laborum.</p>
-                    </div>
-                </li>
-                <li>
-                    <time class="cbp_tmtime" datetime="2017-11-04T03:45"><span>2020.06.01. 09:10</span> <span>Hétfő</span></time>
-                    <div class="cbp_tmicon bg-info"><i class="fas fa-play-circle"></i></div>
-                    <div class="cbp_tmlabel">
-                        <h4 class="news-text">Megnyitott a FestményMánia weboldal!</h4>
-                        <p class="news-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                          ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                          aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
-                          eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-                          mollit anim id est laborum.</p>
-                    </div>
-                </li> -->
+
             </ul>
         </div>
     </div>

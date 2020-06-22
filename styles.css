@@ -100,6 +100,29 @@
 }
 
 /*---------------------------GENERAL---------------------------*/
+.container {
+  position: relative;
+  top: 50px;
+}
+.section-title {
+  padding-top: 100px;
+  color: var(--scrollbar-slider);
+  font-size: 26px;
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: 1px;
+  /* text-transform: uppercase; */
+}
+
+.title-underline {
+  display: block;
+  width: 300px;
+  height: 2px;
+  margin-top: 10px;
+  margin-right: auto;
+  margin-left: auto;
+  background-color: var(--scrollbar-background);
+}
 .footer-brand, .footer-brand:hover {
   font-size: 0,75rem;
   text-decoration: none;
@@ -143,7 +166,11 @@ body {
 }
 .navbar-own {
   background-color: var(--navbar-color);
+  font-size: 1.3rem;
   /* background-image: linear-gradient(to right, #d92027, #fff); */
+}
+.navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show>.nav-link{
+  color: var(--scrollbar-slider);
 }
 .img-fluid-mini {
   height: 30px;
@@ -210,7 +237,7 @@ body {
 }
 /*---------------------------NEWS---------------------------*/
 .news-container {
-  padding-top: 150px;
+  /* padding-top: 150px; */
   padding-bottom: 50px;
 }
 .news-text{
@@ -363,7 +390,7 @@ body {
 }
 /*---------------------------RULES---------------------------*/
 .rules-container {
-  padding-top: 150px;
+  padding-top: 50px;
 }
 .rule-card-body {
   padding: 0px;
@@ -389,7 +416,7 @@ body {
   padding-bottom: 50px;
 }
 .artists-container {
-  padding-top: 150px;
+  padding-top: 50px;
 }
 .artist-card {
   border: 0;
@@ -742,7 +769,7 @@ figcaption .project-creator {
 }
 .profiles {
     margin: 15px;
-    padding-top: 100px;
+    /* padding-top: 100px; */
 }
 .profile {
   border:1px solid var(--admins-profile-img-border-color);

@@ -130,7 +130,9 @@
     }
 
     $(document).ready(function() {
-      $("#menu").load("navbar.html");
+      $("#menu").load("navbar.html", function() {
+        $('#navbar_contact').addClass('active');
+      });
       $("#footer").load("footer.html");
     });
     $(document).on('click', '.art', function() {

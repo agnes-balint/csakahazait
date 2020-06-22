@@ -25,7 +25,9 @@
   });
 
     $(document).ready(function(){
-        $("#menu").load("navbar.html");
+      $("#menu").load("navbar.html", function() {
+          $('#navbar_admins').addClass('active');
+        });
         $("#footer").load("footer.html");
     });
 
@@ -187,10 +189,14 @@
 
   <div id="menu"></div>
 
+  <h1 class="section-title">csakahazait! üzemeltetőink</h1>
+  <div class="title-underline"></div>
 
-  <div class="row bootstrap snippets profiles" id="admin-profiles">
-
+  <div class="container">
+    <div class="row bootstrap snippets profiles" id="admin-profiles">
+    </div>
   </div>
+
 
   <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="contact-modal">
     <div class="modal-dialog modal-lg">

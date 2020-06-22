@@ -23,7 +23,9 @@
 
   $(document).ready(function() {
     // $(window).on('load', function() {
-    $("#menu").load("navbar.html");
+    $("#menu").load("navbar.html", function() {
+      $('#navbar_artists').addClass('active');
+    });
     $("#footer").load("footer.html");
   });
 
@@ -161,8 +163,6 @@
               createImages(name, artistNumber)
               createPrices(name, artistNumber)
               createContact(artistNumber, facebook, twitter, web, mail, phone)
-
-
 
             }
           });
@@ -471,6 +471,8 @@
 
   <div id="menu"></div>
 
+  <h1 class="section-title">csakahazait! művészeink</h1>
+  <div class="title-underline"></div>
 
   <div class="container artists-container">
     <div class="row">
