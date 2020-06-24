@@ -38,7 +38,7 @@
       var role
       var story
       var facebook
-      var twitter
+      var instagram
       var web
       var phone
       var mail
@@ -76,7 +76,7 @@
                 facebook = colData
               }
               if(index == 6){
-                twitter = colData
+                instagram = colData
               }
               if(index == 7){
                 web = colData
@@ -89,7 +89,7 @@
               }
             });
 
-            var appendString = "<div class='col-lg-3 col-md-4 col-sm-6'>" +
+            var appendString = "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-12'>" +
                                 "      <div class='panel widget profile'>" +
                                 "        <div class='widget-header'>" +
                                 "" +
@@ -110,7 +110,7 @@
                                 "    </div>"
 
             $("#admin-profiles").append(appendString);
-            createContact(adminNumber, facebook, twitter, web, mail, phone)
+            createContact(adminNumber, facebook, instagram, web, mail, phone)
 
           }
 
@@ -132,7 +132,7 @@
         }
       });
 
-      function createContact(adminNumber, facebook, twitter, web, mail, phone){
+      function createContact(adminNumber, facebook, instagram, web, mail, phone){
         var contactText = ""
 
         if(facebook != ""){
@@ -141,11 +141,11 @@
         else {
           contactText = contactText.concat("		  <a type='button' class='btn admins-btn-circle-disable'><i class='fab fa-facebook-f fa-lg'></i></a>")
         }
-        if(twitter != ""){
-          contactText = contactText.concat("		  <a type='button' class='btn admins-btn-circle' href='"+twitter+"' target='_blank'><i class='fab fa-twitter fa-lg'></i></a>")
+        if(instagram != ""){
+          contactText = contactText.concat("		  <a type='button' class='btn admins-btn-circle' href='"+instagram+"' target='_blank'><i class='fab fa-instagram fa-lg'></i></a>")
         }
         else {
-          contactText = contactText.concat("		  <a type='button' class='btn admins-btn-circle-disable'><i class='fab fa-twitter fa-lg'></i></a>")
+          contactText = contactText.concat("		  <a type='button' class='btn admins-btn-circle-disable'><i class='fab fa-instagram fa-lg'></i></a>")
         }
 
         if(web != ""){
@@ -192,7 +192,7 @@
   <h1 class="section-title">csakahazait! üzemeltetőink</h1>
   <div class="title-underline"></div>
 
-  <div class="container">
+  <div class="container admin-container">
     <div class="row bootstrap snippets profiles" id="admin-profiles">
     </div>
   </div>

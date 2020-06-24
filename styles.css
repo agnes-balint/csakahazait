@@ -100,9 +100,14 @@
 }
 
 /*---------------------------GENERAL---------------------------*/
+
+.footer {
+  text-align: center;
+  background-color: var(--scrollbar-background);
+  /* padding-top: 20px; */
+}
 .container {
   position: relative;
-  top: 50px;
 }
 .section-title {
   padding-top: 100px;
@@ -173,7 +178,7 @@ body {
   color: var(--scrollbar-slider);
 }
 .img-fluid-mini {
-  height: 30px;
+  height: 40px;
   margin-right: 10px;
 }
 .content {
@@ -209,6 +214,7 @@ body {
 }
 
 /*---------------------------HOME PAGE---------------------------*/
+
 .banner {
   background-image: linear-gradient(to right, var(--home-first-background-color), var(--home-second-background-color));
   color: var(--home-text-color);
@@ -217,6 +223,9 @@ body {
 }
 .home-container{
   /* top: 200px; */
+  position: relative;
+  top: -50px;
+  margin-bottom: 75px;
 }
 .banner a {
   text-decoration: none;
@@ -235,10 +244,18 @@ body {
 .img-fluid {
   width: 75%;
 }
+@media screen and (max-width: 767px) {
+  .home-container{
+    text-align: center;
+  }
+}
 /*---------------------------NEWS---------------------------*/
 .news-container {
   /* padding-top: 150px; */
+  position: relative;
   padding-bottom: 50px;
+  top: 50px;
+  margin-bottom: 75px;
 }
 .news-text{
   color: var(--news-text-color);
@@ -390,7 +407,10 @@ body {
 }
 /*---------------------------RULES---------------------------*/
 .rules-container {
+  position: relative;
   padding-top: 50px;
+  top: 50px;
+  margin-bottom: 75px;
 }
 .rule-card-body {
   padding: 0px;
@@ -416,7 +436,10 @@ body {
   padding-bottom: 50px;
 }
 .artists-container {
+  position: relative;
   padding-top: 50px;
+  top: 50px;
+  margin-bottom: 75px;
 }
 .artist-card {
   border: 0;
@@ -646,6 +669,7 @@ body {
 }
 .artists-btn-circle i {
   color: var(--artists-icon-text-color);
+  margin-top: 5px;
 }
 
 .artists-btn-circle:hover {
@@ -761,6 +785,11 @@ figcaption .project-creator {
     display: block;
 }
 /*---------------------------ADMINS---------------------------*/
+.admin-container {
+  position: relative;
+  top: 50px;
+  margin-bottom: 75px;
+}
 .panel {
     box-shadow: 0 2px 0 rgba(0,0,0,0.075);
     border-radius: 0;
@@ -870,8 +899,9 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 .user-social-detail a i{
 	/* color: var(--admins-card-footer-icon-text-color); */
-	font-size:1.4375rem;
-	padding: 0px 5px;
+	/* font-size:1.4375rem; */
+  margin-top: 5px;
+	/* padding: 0px 5px; */
 }
 .admins-btn-circle {
   background-color: var(--admins-card-footer-icon-background-color);
@@ -905,56 +935,4 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 .admins-card-line {
   border-color: var(--admins-card-line-color);
-}
-/*---------------------------CONTACT---------------------------*/
-.contact-container {
-  padding-top: 150px;
-}
-.contact {
-    padding-bottom: 100px;
-}
-.contact .main {
-    background: #ffffff;
-    box-shadow: 1px 1px 20px 0 rgba(0,0,0,0.08);
-}
-.contact .main h3 {
-    font-size: 1.25rem;
-    font-weight: 500;
-    color: var(--contact-form-text-color);
-    margin: 0;
-    margin-bottom: 20px;
-}
-.left {
-  background-color: var(--contact-form-background-color)
-}
-.contact .main .left {
-    padding: 40px 60px;
-}
-.contact .main .right {
-    background:var(--contact-card-background-color);
-    background-size: cover;
-    padding: 40px;
-    color: var(--contact-card-text-color);
-    height: 100%;
-}
-.contact .main .right a {
-  color: var(--contact-card-text-color);
-}
-.contact .main .right h4 {
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin-bottom: 30px;
-}
-.contact .main .right .info {
-    margin-bottom: 35px;
-}
-.contact .main .right .info i {
-    font-size: 1.5625rem;
-    color: var(--contact-card-text-color);
-}
-.contact .main .right .info span {
-    font-size: 0.875rem;
-    font-weight: 400;
-    line-height: 20px;
-    margin-left: 15px;
 }

@@ -43,7 +43,7 @@
         var location
         var story
         var facebook
-        var twitter
+        var instagram
         var web
         var mail
         var phone
@@ -74,16 +74,16 @@
                   facebook = colData
                 }
                 if(index == 4){
-                  twitter = colData
+                  instagram = colData
                 }
                 if(index == 5){
                   web = colData
                 }
                 if(index == 6){
-                  mail = colData
+                  phone = colData
                 }
                 if(index == 7){
-                  phone = colData
+                  mail = colData
                 }
               });
 
@@ -144,6 +144,7 @@
 
 
               "		  <div class='tab-pane fade p-3' id='artist"+artistNumber+"-three' role='tabpanel' aria-labelledby='artist"+artistNumber+"-three-tab'>" +
+              "      <div class='alert alert-secondary' role='alert'>*Az itt feltüntetett árak nem minősülnek ajánlattételnek! Konkrét ár-ajánlatért kérjük keresse fel művészünket.</div>" +
               "			<div class='container price-list hide-scrollbar' id='price-list'>" +
 
 
@@ -162,7 +163,7 @@
               createTags(name, artistNumber)
               createImages(name, artistNumber)
               createPrices(name, artistNumber)
-              createContact(artistNumber, facebook, twitter, web, mail, phone)
+              createContact(artistNumber, facebook, instagram, web, mail, phone)
 
             }
           });
@@ -380,7 +381,7 @@
           });
         }
 
-    function createContact(artistNumber, facebook, twitter, web, mail, phone){
+    function createContact(artistNumber, facebook, instagram, web, mail, phone){
       var contactText = ""
 
       if(facebook != ""){
@@ -389,11 +390,11 @@
       else {
         contactText = contactText.concat("		  <a type='button' class='btn artists-btn-circle-disable'><i class='fab fa-facebook-f fa-lg'></i></a>")
       }
-      if(twitter != ""){
-        contactText = contactText.concat("		  <a type='button' class='btn artists-btn-circle' href='"+twitter+"' target='_blank'><i class='fab fa-twitter fa-lg'></i></a>")
+      if(instagram != ""){
+        contactText = contactText.concat("		  <a type='button' class='btn artists-btn-circle' href='"+instagram+"' target='_blank'><i class='fab fa-instagram fa-lg'></i></a>")
       }
       else {
-        contactText = contactText.concat("		  <a type='button' class='btn artists-btn-circle-disable'><i class='fab fa-twitter fa-lg'></i></a>")
+        contactText = contactText.concat("		  <a type='button' class='btn artists-btn-circle-disable'><i class='fab fa-instagram fa-lg'></i></a>")
       }
 
       if(web != ""){
