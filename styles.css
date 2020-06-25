@@ -103,8 +103,15 @@
 
 .footer {
   text-align: center;
-  background-color: var(--scrollbar-background);
+  /* background-color: var(--scrollbar-background); */
+  background-color: #222b13;
   /* padding-top: 20px; */
+}
+.footer-brand{
+  color: white;
+}
+.footer-copyright{
+  color: white;
 }
 .container {
   position: relative;
@@ -131,7 +138,7 @@
 .footer-brand, .footer-brand:hover {
   font-size: 0,75rem;
   text-decoration: none;
-  color: var(--home-text-color)
+  /* color: var(--home-text-color) */
 }
 .hide-scrollbar::-webkit-scrollbar, body::-webkit-scrollbar {
   width: 12px;               /* width of the entire scrollbar */
@@ -214,12 +221,28 @@ body {
 }
 
 /*---------------------------HOME PAGE---------------------------*/
-
+#myVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+}
+#video-overlay{
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+}
 .banner {
-  background-image: linear-gradient(to right, var(--home-first-background-color), var(--home-second-background-color));
+  /* background-image: linear-gradient(to right, var(--home-first-background-color), var(--home-second-background-color)); */
+  /* background-image: url(images/wallpaper.jpg); */
   color: var(--home-text-color);
   padding-top: 5%;
   min-height: 100vh;
+  background-size: cover;
 }
 .home-container{
   /* top: 200px; */
@@ -236,7 +259,8 @@ body {
   margin-top: 100px;
 }
 .index-text{
-  color: var(--home-text-color);
+  /* color: var(--home-text-color); */
+  color: white;
 }
 .fa-facebook {
   padding-right: 10px;
@@ -259,6 +283,7 @@ body {
 }
 .news-text{
   color: var(--news-text-color);
+  text-align: justify;
 }
 .cbp_tmtimeline {
     margin: 0;
@@ -406,6 +431,10 @@ body {
     background-color: var(--news-icon-background-color) !important;
 }
 /*---------------------------RULES---------------------------*/
+
+.card-title {
+  font-size: 1.5rem;
+}
 .rules-container {
   position: relative;
   padding-top: 50px;
@@ -432,6 +461,10 @@ body {
   border-color: var(--rules-card-line-color);
 }
 /*---------------------------ARTISTS---------------------------*/
+.card-text {
+  text-align: justify;
+  padding-right: 10px;
+}
 .artist {
   padding-bottom: 50px;
 }
@@ -619,7 +652,7 @@ body {
   height: 350px;
 }
 .introduction {
-  height: 150px;
+  height: 250px;
   display: block;
   overflow: auto;
   text-align: left;
@@ -631,10 +664,11 @@ body {
   text-align: left;
 }
 .price-list {
-  height: 300px;
+  height: 210px;
   display: block;
   overflow: auto;
   text-align: left;
+  padding-top: 25px;
 }
 /* .hide-scrollbar {
   scrollbar-width: none;
@@ -691,7 +725,7 @@ body {
   background-color: var(--artists-disabled-icon-background-color-hover);
   color: var(--artists-disabled-icon-text-color-hover);
 }
-.badge {
+.badge-artists {
   background-color: var(--artists-tags-background-color);
   color: var(--artists-tags-text-color);
 }

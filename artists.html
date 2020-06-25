@@ -8,7 +8,12 @@
   <!-- STYLES -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"
+    />
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="animations.css">
   <!-- FONT -->
   <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
   <!-- SCRIPTS -->
@@ -126,7 +131,7 @@
 
               "			  </ol>" +
 
-              "			  <div class='carousel-inner' id='carousel-inner'>" +
+              "			  <div class='carousel-inner' id='carousel-inner-"+artistNumber+"'>" +
 
               "			  </div>" +
               "  <a class='carousel-control-prev' href='#artist"+artistNumber+"-slider' role='button' data-slide='prev'>"+
@@ -145,7 +150,7 @@
 
               "		  <div class='tab-pane fade p-3' id='artist"+artistNumber+"-three' role='tabpanel' aria-labelledby='artist"+artistNumber+"-three-tab'>" +
               "      <div class='alert alert-secondary' role='alert'>*Az itt feltüntetett árak nem minősülnek ajánlattételnek! Konkrét ár-ajánlatért kérjük keresse fel művészünket.</div>" +
-              "			<div class='container price-list hide-scrollbar' id='price-list'>" +
+              "			<div class='container price-list hide-scrollbar' id='price-list-"+artistNumber+"'>" +
 
 
               "			</div>" +
@@ -159,7 +164,6 @@
               "  </li>"
 
               $("#cbp_tmtimeline_artists").append(appendString);
-              createAchivements(name, artistNumber)
               createTags(name, artistNumber)
               createImages(name, artistNumber)
               createPrices(name, artistNumber)
@@ -170,51 +174,6 @@
         }
       }
     });
-
-
-
-
-  function createAchivements(artistName, artistNumber){
-    var achivements;
-    var achivement;
-    var achivementText = "";
-
-    var options={"separator" : ";"};
-      $.ajax({
-        type: "GET",
-        url: "datas/artists/"+artistName+"/achivements.csv",
-        dataType: "text",
-        success: function(response1)
-        {
-          achivements = $.csv.toArrays(response1, options);
-
-          if(typeof(achivements[0]) === 'undefined')
-          {
-            return null;
-          }
-          else
-          {
-            achivementText = achivementText.concat("			<hr class='artists-card-line'>" +
-                                                   "			<div class='awards hide-scrollbar'>")
-            $.each(achivements, function( index, row )
-            {
-              if(index != 0)
-              {
-                $.each(row, function( index, colData)
-                {
-                  if(index == 0){
-                    achivement = colData
-                  }
-                  achivementText = achivementText.concat("			  <span><i class='fas fa-trophy'>&nbsp</i>"+achivement+"</span><br>")
-                });
-              }
-            });
-            achivementText = achivementText.concat("			</div>")
-            $("#artist"+artistNumber+"-one").append(achivementText);
-          }
-        }
-      });
-    }
 
 
   function createTags(artistName, artistNumber){
@@ -248,7 +207,7 @@
                   if(index == 0){
                     tag = colData
                   }
-                  tagText = tagText.concat("			  <span class='badge badge-pill badge-primary'>"+tag+"</span>")
+                  tagText = tagText.concat("			  <span class='badge badge-pill badge-artists'>"+tag+"</span>")
                 });
 
               }
@@ -314,7 +273,7 @@
                 }
               });
               $("#artist"+artistNumber+"-slider-indicators").append(imageTextSlider);
-              $("#carousel-inner").append(imageTextImages);
+              $("#carousel-inner-"+artistNumber).append(imageTextImages);
             }
           }
         });
@@ -359,7 +318,7 @@
                       }
 
                     });
-                    priceText = priceText.concat("			  <div class='row'>" +
+                    priceText = priceText.concat("		<div class='row'>" +
                                                 "				<div class='col-ms-10 col-md-4 '>" +
                                                 "				  <div class='project'>" +
                                                 "					<figure class='img-responsive'>" +
@@ -371,11 +330,11 @@
                                                 "					</figure>" +
                                                 "				  </div>" +
                                                 "				</div>" +
-                                                "			  </div>")
+                                                "			</div>")
 
                   }
                 });
-                $("#price-list").append(priceText);
+                $("#price-list-"+artistNumber).append(priceText);
               }
             }
           });
@@ -463,6 +422,12 @@
       $('.collapse').collapse('hide');
     })
 
+    if($('.awards').length){
+    	$('.introduction').css('heigth', '150px');
+    }else{
+    	$('.introduction').css('heigth', '200px');
+    }
+
 
   </script>
 
@@ -481,7 +446,7 @@
         <ul class="cbp_tmtimeline_artists" id="cbp_tmtimeline_artists">
 
           <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="modal">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
               <div class="modal-content">
                 <div class="modal-body">
                   <img src="" id="model-img" height="75%" width="75%">

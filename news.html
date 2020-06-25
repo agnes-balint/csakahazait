@@ -8,7 +8,12 @@
   <!-- STYLES -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"
+    />
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="animations.css">
   <!-- FONT -->
   <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
   <!-- SCRIPTS -->
@@ -26,6 +31,8 @@
     var title
     var text
     var image
+    var category
+    var color
 
     if(typeof(data[0]) === 'undefined')
     {
@@ -55,9 +62,33 @@
               image = colData
             }
             if(index == 5){
+              category = colData
+            }
+            if(index == 6){
+              color = colData
+            }
+            if(index == 7){
               text = colData
             }
           });
+          var bootstrapColorClass;
+          switch(color){
+            case "blue":
+              bootstrapColorClass = "primary"
+              break;
+            case "red":
+              bootstrapColorClass = "danger"
+              break;
+            case "yellow":
+              bootstrapColorClass = "warning"
+              break;
+            case "black":
+              bootstrapColorClass = "dark"
+              break;
+            case "green":
+              bootstrapColorClass = "success"
+              break;
+          }
 
           var appendString = "<li>" +
           "	<time class='cbp_tmtime'><span>"+date+"</span> <span>"+day+"</span></time>" +
@@ -66,7 +97,7 @@
           "<div class='row'>" +
           "   <div class='col-lg-12 '><h4 class='news-text'>"+title+"</h4></div>" +
           "   <div class='col-lg-4 '><img src='datas/news/"+image+"' alt='' width='100%'></div>" +
-          "   <div class='col-lg-8 '><p class='news-text'>"+text+"</p></div>" +
+          "   <div class='col-lg-8 '><p class='news-text'><span class='badge badge-"+bootstrapColorClass+"'>"+category+"</span>&nbsp"+text+"</p></div>" +
           " </div>" +
           "	</div>" +
           "</li>"
@@ -103,6 +134,7 @@
     $(document).on('click',function(){
       $('.collapse').collapse('hide');
     })
+
 
   </script>
 

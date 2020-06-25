@@ -8,7 +8,12 @@
   <!-- STYLES -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"
+    />
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="animations.css">
   <!-- FONT -->
   <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
   <!-- SCRIPTS -->
@@ -69,15 +74,23 @@
   <div id="menu"></div>
 
   <section class="banner">
+
+    <video autoplay muted loop id="myVideo">
+      <source src="images/green.webm" type="video/webm">
+      Your browser does not support HTML5 video.
+    </video>
+    <div id="video-overlay"></div>
+
     <div class="container home-container">
       <div class="row">
         <div class="col-md-6">
+          <!-- <p class="promo-title index-text wow fadeInLeft" data-wow-duration="1.5s" style="visibility: visible; animation-duration: 1.5s; animation-name: fadeInLeft;">Vásárolj Te is hazai termelőktől!</p> -->
           <p class="promo-title index-text">Vásárolj Te is hazai termelőktől!</p>
           <p class="index-text" id="index-text"></p>
-          <a class="btn btn-lg btn-outline-dark" href="https://www.facebook.com/groups/2389278021369945/" role="button" target="_blank"><i class="fab fa-facebook"></i>Csatlakozom!</a>
+          <a class="btn btn-lg btn-outline-dark" id="index-btn" href="https://www.facebook.com/groups/2389278021369945/" role="button" target="_blank"><i class="fab fa-facebook"></i>Csatlakozom!</a>
         </div>
-        <div class="col-md-6 text-center my-auto">
-          <img src="images/logo_big.png" class="img-fluid">
+        <div class="col-md-6 text-center my-auto" id="index-img">
+          <img src="images/logo_big_white.png" class="img-fluid">
         </div>
       </div>
 
@@ -86,6 +99,20 @@
 
   <div id="footer"></div>
 
+  <script>
+  var video = document.getElementById("myVideo");
+  var btn = document.getElementById("myBtn");
+
+  function myFunction() {
+    if (video.paused) {
+      video.play();
+      btn.innerHTML = "Pause";
+    } else {
+      video.pause();
+      btn.innerHTML = "Play";
+    }
+  }
+  </script>
 </body>
 
 </html>

@@ -1,0 +1,75 @@
+.promo-title{
+  visibility: visible;
+  animation-duration: 1.5s;
+  animation-name: fadeInLeft;
+}
+#index-text{
+  visibility: visible;
+  animation-duration: 1.5s;
+  animation-name: fadeIn;
+}
+#index-btn{
+  visibility: visible;
+  animation-duration: 1.5s;
+  animation-name: fadeInUp;
+}
+#index-img{
+  visibility: visible;
+  animation-duration: 1.5s;
+  animation-name: fadeInRight;
+}
+.section-title{
+  visibility: visible;
+  animation-duration: 1.5s;
+  animation-name: fadeInDown;
+}
+.cbp_tmtime{
+  visibility: visible;
+  animation-duration: 1.5s;
+  animation-name: fadeInLeft;
+}
+.cbp_tmicon{
+  visibility: visible;
+  animation-duration: 1.5s;
+  animation-name: fadeIn;
+}
+.cbp_tmlabel {
+  visibility: visible;
+  animation-duration: 1.5s;
+  animation-name: fadeInRight;
+}
+.artist-card {
+  visibility: visible;
+  animation-duration: 1.5s;
+  animation-name: fadeInRight;
+}
+.cbp_tmtimeline_artists>li .cbp_tmlabel_artists:after{
+  visibility: visible;
+  animation-duration: 2s;
+  animation-name: fadeIn;
+}
+.cbp_tmtime_artists{
+  visibility: visible;
+  animation-duration: 1.5s;
+  animation-name: fadeInLeft;
+}
+.cbp_tmicon_artists{
+  visibility: visible;
+  animation-duration: 1.5s;
+  animation-name: fadeIn;
+}
+.profile{
+  visibility: visible;
+  animation-duration: 1.5s;
+  animation-name: fadeInUp;
+}
+.rule-tile:nth-child(odd){
+  visibility: visible;
+  animation-duration: 1.5s;
+  animation-name: fadeInLeft;
+}
+.rule-tile:nth-child(even){
+  visibility: visible;
+  animation-duration: 1.5s;
+  animation-name: fadeInRight;
+}
