@@ -61,7 +61,7 @@
 .profile{
   visibility: visible;
   animation-duration: 1.5s;
-  animation-name: fadeInUp;
+  animation-name: fadeInLeft;
 }
 .rule-tile:nth-child(odd){
   visibility: visible;

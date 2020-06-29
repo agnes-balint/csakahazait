@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <title>csakahazait!</title>
+  <meta name="description" content="A csakahazait! a kistermelők, alkotók, művészek és szolgáltatók támogatására létrejött mozgalom, amely segítségével közelebb hozhatjuk a magyar termékeket a vásárlókhoz.">
+  <!-- STYLES -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"
+    />
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="animations.css">
+  <link rel="icon" href="images/logo_sm.png">
+  <!-- FONT -->
+  <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <!-- SCRIPTS -->
+  <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"></script>
+
+  <script type="text/javascript">
+
+  $(document).ready(function() {
+    // $(window).on('load', function() {
+    $("#menu").load("navbar.html", function() {
+      $('#navbar_creatives').addClass('active');
+    });
+    $("#footer").load("footer.html");
+  });
+
+  var data;
+  var options={"separator" : ";"};
+    $.ajax({
+      type: "GET",
+      url: "datas/creatives/creatives.csv",
+      dataType: "text",
+      success: function(response)
+      {
+        data = $.csv.toArrays(response, options);
+        var creativeNumber
+        var name
+        var location
+        var story
+        var facebook
+        var instagram
+        var web
+        var mail
+        var phone
+
+        if(typeof(data[0]) === 'undefined')
+        {
+          return null;
+        }
+        else
+        {
+          $.each(data, function( index, row )
+          {
+            if(index != 0)
+            {
+              creativeNumber = index;
+              $.each(row, function( index, colData)
+              {
+                if(index == 0){
+                  name = colData
+                }
+                if(index == 1){
+                  location = colData
+                }
+                if(index == 2){
+                  story = colData
+                }
+                if(index == 3){
+                  facebook = colData
+                }
+                if(index == 4){
+                  instagram = colData
+                }
+                if(index == 5){
+                  web = colData
+                }
+                if(index == 6){
+                  phone = colData
+                }
+                if(index == 7){
+                  mail = colData
+                }
+              });
+
+              var appendString = "<li class='creative' id='creative"+creativeNumber+"'>" +
+              "	<div class='cbp_tmtime_creatives'><span id='creativeName'>"+name+"</span>" +
+              "	  <span><i class='fas fa-map-marker-alt'>&nbsp</i>"+location+"</span>" +
+              "	</div>" +
+              "	<div class='cbp_tmicon_creatives bg-info_creatives'>" +
+              "	  <img alt='Profile Picture' class='profile-img widget-img img-circle img-border-light rounded-circle' src='datas/creatives/"+name+"/profileImage/avatar.jpg'>" +
+              "	  <img alt='creative-badge' class='creative-badge img-circle rounded-circle' src='images/badge.png'>" +
+              "	</div>" +
+              "	<div class='cbp_tmlabel_creatives'>" +
+              "	  <div class='card creative-card text-center'>" +
+              "		<div class='card-header tab-card-header'>" +
+              "		  <ul class='nav nav-tabs card-header-tabs' id='creative"+creativeNumber+"-myTab' role='tablist'>" +
+              "			<li class='nav-item'>" +
+              "			  <a class='tab-text nav-link active' id='creative"+creativeNumber+"-one-tab' data-toggle='tab' href='#creative"+creativeNumber+"-one' role='tab' aria-controls='One' aria-selected='true'>Sztorim</a>" +
+              "			</li>" +
+              "			<li class='nav-item'>" +
+              "			  <a class='tab-text nav-link' id='creative"+creativeNumber+"-two-tab' data-toggle='tab' href='#creative"+creativeNumber+"-two' role='tab' aria-controls='Two' aria-selected='false'>Műveim</a>" +
+              "			</li>" +
+              "			<li class='nav-item'>" +
+              "			  <a class='tab-text nav-link' id='creative"+creativeNumber+"-three-tab' data-toggle='tab' href='#creative"+creativeNumber+"-three' role='tab' aria-controls='Three' aria-selected='false'>Áraim</a>" +
+              "			</li>" +
+              "		  </ul>" +
+              "		</div>" +
+              "		<div class='tab-content creative-tab-content' id='creative"+creativeNumber+"-myTabContent'>" +
+              "		  <div class='tab-pane fade show active p-3' id='creative"+creativeNumber+"-one' role='tabpanel' aria-labelledby='creative"+creativeNumber+"-one-tab'>" +
+              "			<div class='introduction hide-scrollbar'>" +
+              "			  <p class='card-text '>"+story+"</p>" +
+              "			</div>" +
+
+              "		  </div>" +
+
+
+
+              "		  <div class='tab-pane fade p-3' id='creative"+creativeNumber+"-two' role='tabpanel' aria-labelledby='creative"+creativeNumber+"-two-tab'>" +
+              "			<div class='carousel slide' id='creative"+creativeNumber+"-slider' data-ride='carousel' data-interval='false' data-touch='true'>" +
+              "			  <ol class='carousel-indicators' id='creative"+creativeNumber+"-slider-indicators' >" +
+
+              "			  </ol>" +
+
+              "			  <div class='carousel-inner' id='carousel-inner-"+creativeNumber+"'>" +
+
+              "			  </div>" +
+              "  <a class='carousel-control-prev' href='#creative"+creativeNumber+"-slider' role='button' data-slide='prev'>"+
+              "    <span class='carousel-control-prev-icon' aria-hidden='true'></span>"+
+              "    <span class='sr-only'>Previous</span>"+
+              "  </a>"+
+              "  <a class='carousel-control-next' href='#creative"+creativeNumber+"-slider' role='button' data-slide='next'>"+
+              "    <span class='carousel-control-next-icon' aria-hidden='true'></span>"+
+              "    <span class='sr-only'>Next</span>"+
+              "  </a>"+
+
+
+              "			</div>" +
+              "		  </div>" +
+
+
+              "		  <div class='tab-pane fade p-3' id='creative"+creativeNumber+"-three' role='tabpanel' aria-labelledby='creative"+creativeNumber+"-three-tab'>" +
+              "      <div class='alert alert-secondary' role='alert'>*Az itt feltüntetett árak nem minősülnek ajánlattételnek! Konkrét ár-ajánlatért kérjük keresse fel művészünket.</div>" +
+              "			<div class='container price-list hide-scrollbar' id='price-list-"+creativeNumber+"'>" +
+
+
+              "			</div>" +
+              "		  </div>" +
+              "		</div>" +
+              "		<div class='card-footer' id='creative"+creativeNumber+"-card-footer'>" +
+
+              "		</div>" +
+              "	  </div>" +
+              "	</div>" +
+              "  </li>"
+
+              $("#cbp_tmtimeline_creatives").append(appendString);
+              createTags(name, creativeNumber)
+              createImages(name, creativeNumber)
+              createPrices(name, creativeNumber)
+              createContact(creativeNumber, facebook, instagram, web, mail, phone)
+
+            }
+          });
+        }
+      }
+    });
+
+
+  function createTags(creativeName, creativeNumber){
+    var tags;
+    var tag;
+    var tagText = ""
+
+    var options={"separator" : ";"};
+      $.ajax({
+        type: "GET",
+        url: "datas/creatives/"+creativeName+"/tags.csv",
+        dataType: "text",
+        success: function(response)
+        {
+          tags = $.csv.toArrays(response, options);
+
+          if(typeof(tags[0]) === 'undefined')
+          {
+            return null;
+          }
+          else
+          {
+            tagText = "			<hr class='creatives-card-line'>" +
+                      "			<div class='tags'>"
+            $.each(tags, function( index, row )
+            {
+              if(index != 0)
+              {
+                $.each(row, function( index, colData)
+                {
+                  if(index == 0){
+                    tag = colData
+                  }
+                  tagText = tagText.concat("			  <span class='badge badge-pill badge-creatives'>"+tag+"</span>")
+                });
+
+              }
+            });
+            tagText = tagText.concat("			  </div>")
+            $("#creative"+creativeNumber+"-one").append(tagText);
+          }
+        }
+      });
+    }
+
+    function createImages(creativeName, creativeNumber){
+      var images;
+      var image;
+      var imageTextSlider = ""
+      var imageTextImages = ""
+      var rowIndex
+      var sliderIndex
+
+      var options={"separator" : ";"};
+        $.ajax({
+          type: "GET",
+          url: "datas/creatives/"+creativeName+"/images.csv",
+          dataType: "text",
+          success: function(response)
+          {
+            images = $.csv.toArrays(response, options);
+
+            if(typeof(images[0]) === 'undefined')
+            {
+              return null;
+            }
+            else
+            {
+              $.each(images, function( index, row )
+              {
+                if(index != 0)
+                {
+                  rowIndex = index
+                  $.each(row, function( index, colData)
+                  {
+                    if(index == 0){
+                      image = colData
+                    }
+                    if(rowIndex == 1){
+                      sliderIndex = rowIndex-1
+                      imageTextSlider = imageTextSlider.concat("				<li data-target='#creative"+creativeNumber+"-slider' data-slide-to='"+sliderIndex+"' class='active'></li>")
+                      imageTextImages = imageTextImages.concat("				<div class='carousel-item active'>" +
+                                                              "				  <img class='art d-block' src='datas/creatives/"+creativeName+"/images/"+image+"'>" +
+                                                              "				</div>")
+                    }
+                    else {
+                      sliderIndex = rowIndex-1
+                      imageTextSlider = imageTextSlider.concat("				<li data-target='#creative"+creativeNumber+"-slider' data-slide-to='"+sliderIndex+"' ></li>")
+                      imageTextImages = imageTextImages.concat("				<div class='carousel-item'>" +
+                                                              "				  <img class='art d-block' src='datas/creatives/"+creativeName+"/images/"+image+"'>" +
+                                                              "				</div>")
+                    }
+
+
+                  });
+
+                }
+              });
+              $("#creative"+creativeNumber+"-slider-indicators").append(imageTextSlider);
+              $("#carousel-inner-"+creativeNumber).append(imageTextImages);
+            }
+          }
+        });
+      }
+
+      function createPrices(creativeName, creativeNumber){
+        var prices;
+        var title;
+        var price;
+        var description;
+        var priceText = ""
+
+        var options={"separator" : ";"};
+          $.ajax({
+            type: "GET",
+            url: "datas/creatives/"+creativeName+"/prices.csv",
+            dataType: "text",
+            success: function(response)
+            {
+              prices = $.csv.toArrays(response, options);
+
+              if(typeof(prices[0]) === 'undefined')
+              {
+                return null;
+              }
+              else
+              {
+                $.each(prices, function( index, row )
+                {
+                  if(index != 0)
+                  {
+                    $.each(row, function( index, colData)
+                    {
+                      if(index == 0){
+                        title = colData
+                      }
+                      if(index == 1){
+                        price = colData
+                      }
+                      if(index == 2){
+                        description = colData
+                      }
+
+                    });
+                    priceText = priceText.concat("		<div class='row'>" +
+                                                "				<div class='col-ms-10 col-md-4 '>" +
+                                                "				  <div class='project'>" +
+                                                "					<figure class='img-responsive'>" +
+                                                "					  <figcaption>" +
+                                                "						<span class='project-details'>"+title+"</span>" +
+                                                "						<span class='project-price'><strong>"+price+"</strong></span>" +
+                                                "						<span class='project-creator'>"+description+"</span>" +
+                                                "					  </figcaption>" +
+                                                "					</figure>" +
+                                                "				  </div>" +
+                                                "				</div>" +
+                                                "			</div>")
+
+                  }
+                });
+                $("#price-list-"+creativeNumber).append(priceText);
+              }
+            }
+          });
+        }
+
+    function createContact(creativeNumber, facebook, instagram, web, mail, phone){
+      var contactText = ""
+
+      if(facebook != ""){
+        contactText = contactText.concat("		  <a type='button' class='btn creatives-btn-circle' href='"+facebook+"' target='_blank'><i class='fab fa-facebook-f fa-lg'></i></a>")
+        }
+      else {
+        contactText = contactText.concat("		  <a type='button' class='btn creatives-btn-circle-disable'><i class='fab fa-facebook-f fa-lg'></i></a>")
+      }
+      if(instagram != ""){
+        contactText = contactText.concat("		  <a type='button' class='btn creatives-btn-circle' href='"+instagram+"' target='_blank'><i class='fab fa-instagram fa-lg'></i></a>")
+      }
+      else {
+        contactText = contactText.concat("		  <a type='button' class='btn creatives-btn-circle-disable'><i class='fab fa-instagram fa-lg'></i></a>")
+      }
+
+      if(web != ""){
+        contactText = contactText.concat("		  <a type='button' class='btn creatives-btn-circle' href='"+web+"' target='_blank'><i class='fas fa-globe fa-lg'></i></a>")
+      }
+      else {
+        contactText = contactText.concat("		  <a type='button' class='btn creatives-btn-circle-disable'><i class='fas fa-globe fa-lg'></i></a>")
+      }
+
+      if(mail != ""){
+        contactText = contactText.concat("		  <a type='button' class='btn creatives-btn-circle example-popover' contact-content='"+mail+"'><i class='far fa-envelope fa-lg'></i></a>")
+      }
+      else {
+        contactText = contactText.concat("		  <a type='button' class='btn creatives-btn-circle-disable'><i class='far fa-envelope fa-lg'></i></a>")
+      }
+
+      if(phone != ""){
+        contactText = contactText.concat("		  <a type='button' class='btn creatives-btn-circle example-popover' contact-content="+phone+"><i class='fas fa-phone fa-lg'></i></a>")
+      }
+      else {
+        contactText = contactText.concat("		  <a type='button' class='btn creatives-btn-circle-disable'><i class='fas fa-phone fa-lg'></i></a>")
+      }
+      $("#creative"+creativeNumber+"-card-footer").append(contactText);
+    }
+
+
+    // if (window.location.hash) scroll(0, 0);
+    // // void some browsers issue
+    // setTimeout(function() {
+    //   scroll(0, 0);
+    // }, 1);
+    //
+    // $(function() {
+    //   // *only* if we have anchor on the url
+    //   if (window.location.hash) {
+    //     // smooth scroll to the anchor id
+    //     $('html, body').animate({
+    //       // scrollTop: $(window.location.hash).offset().top + 'px'
+    //       scrollTop: $(window.location.hash).offset().top - $(window.location.hash).height() / 4
+    //     }, 1000, 'swing');
+    //     // }, 'slow');
+    //   }
+    // });
+    // $(window).on("hashchange", function() {
+    //   $('html, body').animate({
+    //     // scrollTop: $(window.location.hash).offset().top + 'px'
+    //     scrollTop: $(window.location.hash).offset().top - $(window.location.hash).height() / 4
+    //   }, 1000, 'swing');
+    // });
+
+
+
+    $(document).on('click', '.art', function() {
+      console.log("4");
+      var src = $(this).attr('src');
+      $("#model-img").attr('src', src);
+      $("#modal").modal('show');
+    })
+
+    $(document).on('click', '.example-popover', function() {
+      $("#contact-modal-body").empty();
+      var src = $(this).attr('contact-content');
+      $("#contact-modal-body").append(src);
+      $("#contact-modal").modal('show');
+    })
+
+    $(document).on('click', function() {
+      $('.collapse').collapse('hide');
+    })
+
+    if($('.awards').length){
+    	$('.introduction').css('heigth', '150px');
+    }else{
+    	$('.introduction').css('heigth', '200px');
+    }
+
+    if (window.location.hash) scroll(0, 0);
+    // void some browsers issue
+    setTimeout(function() {
+      scroll(0, 0);
+    }, 1);
+
+    setTimeout( function(){
+    // $(document).ready(function () {
+      if (window.location.hash) {
+        // smooth scroll to the anchor id
+        $('html, body').animate({
+          // scrollTop: $(window.location.hash).offset().top + 'px'
+            scrollTop: $(window.location.hash).offset().top - $(window.location.hash).height() / 4
+        }, 1000, 'swing');
+
+      }
+    } , 1500 );
+    $(window).on("hashchange", function() {
+      $('html, body').animate({
+        // scrollTop: $(window.location.hash).offset().top + 'px'
+        scrollTop: $(window.location.hash).offset().top - $(window.location.hash).height() / 4
+      }, 1000, 'swing');
+    });
+
+  new WOW().init();
+  </script>
+
+</head>
+
+<body>
+
+  <div id="menu"></div>
+
+  <h1 class="section-title">csakahazait! művészeink</h1>
+  <div class="title-underline"></div>
+
+  <div class="container creatives-container">
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="cbp_tmtimeline_creatives" id="cbp_tmtimeline_creatives">
+
+          <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="modal">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-body">
+                  <img src="" id="model-img" height="75%" width="75%">
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="contact-modal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-body">
+          <p id="contact-modal-body"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="footer"></div>
+  <div class="bg-link">
+    <a href="https://www.freepik.com">designed by Freepik</a>
+  </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+</body>
+
+</html>
